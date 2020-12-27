@@ -33,6 +33,7 @@ public class Employee {
     @ManyToOne(optional = false)
     private Shop shop;
 
+    @Deprecated
     protected Employee() {
     }
 
