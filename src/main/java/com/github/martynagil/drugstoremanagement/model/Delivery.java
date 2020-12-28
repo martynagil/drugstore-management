@@ -19,8 +19,7 @@ public class Delivery {
     @ManyToOne(optional = false)
     private Shop shop;
 
-    @OneToMany
-    @JoinColumn(name = "delivery_id")
+    @OneToMany(mappedBy = "deliveryEntryId.delivery")
     private List<DeliveryEntry> deliveryEntries = new ArrayList<>();
 
     @Deprecated

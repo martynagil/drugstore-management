@@ -12,7 +12,7 @@ public class DeliveryEntry {
     @EmbeddedId
     private DeliveryEntryId deliveryEntryId;
 
-    @Column
+    @Column(nullable = false)
     private int count;
 
     @Deprecated

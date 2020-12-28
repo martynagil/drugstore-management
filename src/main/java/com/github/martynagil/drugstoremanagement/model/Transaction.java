@@ -19,8 +19,7 @@ public class Transaction {
     @ManyToOne(optional = false)
     private Shop shop;
 
-    @OneToMany
-    @JoinColumn(name = "transaction_id")
+    @OneToMany(mappedBy = "transactionEntryId.transaction")
     private List<TransactionEntry> transactionEntries = new ArrayList<>();
 
     @Deprecated

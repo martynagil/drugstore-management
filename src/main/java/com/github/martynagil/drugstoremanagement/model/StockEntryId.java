@@ -7,43 +7,44 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class DeliveryEntryId implements Serializable {
+public class StockEntryId implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne
-    private Delivery delivery;
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
 
     @Deprecated
-    protected DeliveryEntryId() {
+    protected StockEntryId() {
     }
 
-    public DeliveryEntryId(Product product, Delivery delivery) {
+    public StockEntryId(Product product, Shop shop) {
         this.product = product;
-        this.delivery = delivery;
+        this.shop = shop;
     }
 
     public Product getProduct() {
         return product;
     }
 
-    public Delivery getDelivery() {
-        return delivery;
+    public Shop getShop() {
+        return shop;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DeliveryEntryId that = (DeliveryEntryId) o;
+        StockEntryId that = (StockEntryId) o;
         return product.equals(that.product) &&
-                delivery.equals(that.delivery);
+                shop.equals(that.shop);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(product, delivery);
+        return Objects.hash(product, shop);
     }
 }

@@ -36,11 +36,11 @@ public class Employee {
     private Shop shop;
 
     @OneToMany
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "employee_id", nullable = false)
     private List<Salary> salaries = new ArrayList<>();
 
     @OneToMany
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "employee_id", nullable = false)
     private List<WorkTime> workTimes = new ArrayList<>();
 
     @Deprecated
@@ -57,8 +57,6 @@ public class Employee {
         this.salaries = salaries;
         this.workTimes = workTimes;
     }
-
-}
 
     public Long getId() {
         return id;

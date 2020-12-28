@@ -1,6 +1,8 @@
 package com.github.martynagil.drugstoremanagement.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "shops")
@@ -16,13 +18,17 @@ public class Shop {
     @OneToOne(optional = false)
     private Address address;
 
+    @OneToMany(mappedBy = "stockEntryId.shop")
+    private List<StockEntry> stockEntries = new ArrayList<>();
+
     @Deprecated
     protected Shop() {
     }
 
-    public Shop(String name, Address address) {
+    public Shop(String name, Address address, List<StockEntry> stockEntries) {
         this.name = name;
         this.address = address;
+        this.stockEntries = stockEntries;
     }
 
     public Long getId() {
@@ -35,5 +41,9 @@ public class Shop {
 
     public Address getAddress() {
         return address;
+    }
+
+    public List<StockEntry> getStockEntries() {
+        return stockEntries;
     }
 }

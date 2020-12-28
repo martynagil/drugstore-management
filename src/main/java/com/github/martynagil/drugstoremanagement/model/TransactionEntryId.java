@@ -14,7 +14,6 @@ public class TransactionEntryId implements Serializable {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "transaction_id")
     private Transaction transaction;
 
     @Deprecated
