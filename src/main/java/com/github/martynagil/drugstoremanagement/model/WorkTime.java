@@ -17,17 +17,11 @@ public class WorkTime {
     @Column
     private LocalDateTime endDate;
 
-    // TODO: 27.12.2020 ten sam przypadek co w Salary
-    @ManyToOne
-    private Employee employee;
-
     @Deprecated
     protected WorkTime() {
     }
 
-    // TODO: 27.12.2020 czy taki konstruktor ma sens? jak będziemy tworzyć wpis (przy wejściu pracownika) to nie będziemy znać czasu wyjścia
-    public WorkTime(Employee employee, LocalDateTime startDate) {
-        this.employee = employee;
+    public WorkTime(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
@@ -41,9 +35,5 @@ public class WorkTime {
 
     public LocalDateTime getEndDate() {
         return endDate;
-    }
-
-    public Employee getEmployee() {
-        return employee;
     }
 }

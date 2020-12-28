@@ -2,7 +2,9 @@ package com.github.martynagil.drugstoremanagement.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "employees")
@@ -32,6 +34,14 @@ public class Employee {
 
     @ManyToOne(optional = false)
     private Shop shop;
+
+    @OneToMany
+    @JoinColumn(name = "employee_id")
+    private List<Salary> salaries = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "employee_id")
+    private List<WorkTime> workTimes = new ArrayList<>();
 
     @Deprecated
     protected Employee() {

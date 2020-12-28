@@ -10,10 +10,10 @@ public class Producer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false) // TODO: 27.12.2020 unique
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false) // TODO: 27.12.2020 tutaj też unique
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)

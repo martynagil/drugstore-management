@@ -10,7 +10,7 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false) // TODO: 27.12.2020 mógłby jeszcze być unique
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)

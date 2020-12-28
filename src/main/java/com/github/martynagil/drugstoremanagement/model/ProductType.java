@@ -2,9 +2,6 @@ package com.github.martynagil.drugstoremanagement.model;
 
 import javax.persistence.*;
 
-// TODO: 27.12.2020 tak jak Ci wcześniej mówiłem, generalnie można tak zrobić, ale w springu raczej trzyma się takie rzeczy pod postacią stringa w bazie
-// w aplikacji powinny być zwykłym enumem (no chyba, że chcemy żeby te typy produktów były dynamiczne - wtedy faktycznie trzeba zostawic tak jak jest)
-// dynamicznie czyli, że pracownik może dodać nowy typ produktu
 @Entity
 @Table(name = "products_types")
 public class ProductType {
