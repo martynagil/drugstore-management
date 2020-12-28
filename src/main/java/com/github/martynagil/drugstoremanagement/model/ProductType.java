@@ -3,14 +3,14 @@ package com.github.martynagil.drugstoremanagement.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "products_types")
+@Table(name = "product_types")
 public class ProductType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Deprecated

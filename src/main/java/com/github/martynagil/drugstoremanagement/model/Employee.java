@@ -20,16 +20,16 @@ public class Employee {
     @Column(nullable = false)
     private String surname;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String telephoneNumber;
 
     @Column(nullable = false)
     private LocalDate dateOfEmployment;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate dateOfDismissal;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @ManyToOne(optional = false)
@@ -47,15 +47,18 @@ public class Employee {
     protected Employee() {
     }
 
-    public Employee(String name, String surname, String telephoneNumber, LocalDate dateOfEmployment, LocalDate dateOfDismissal, String email, Shop shop) {
+    public Employee(String name, String surname, String telephoneNumber, LocalDate dateOfEmployment, String email, Shop shop, List<Salary> salaries, List<WorkTime> workTimes) {
         this.name = name;
         this.surname = surname;
         this.telephoneNumber = telephoneNumber;
         this.dateOfEmployment = dateOfEmployment;
-        this.dateOfDismissal = dateOfDismissal;
         this.email = email;
         this.shop = shop;
+        this.salaries = salaries;
+        this.workTimes = workTimes;
     }
+
+}
 
     public Long getId() {
         return id;
@@ -87,5 +90,13 @@ public class Employee {
 
     public Shop getShop() {
         return shop;
+    }
+
+    public List<Salary> getSalaries() {
+        return salaries;
+    }
+
+    public List<WorkTime> getWorkTimes() {
+        return workTimes;
     }
 }

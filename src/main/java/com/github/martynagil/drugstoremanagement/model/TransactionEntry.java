@@ -1,17 +1,32 @@
 package com.github.martynagil.drugstoremanagement.model;
 
 import javax.persistence.*;
-// TODO: 28.12.2020
-//@Entity
+
+@Entity
 @Table(name = "transaction_entries")
 public class TransactionEntry {
 
-    @Column
+    @EmbeddedId
+    private TransactionEntryId transactionEntryId;
+
+    @Column(nullable = false)
     private int count;
 
-    @ManyToOne
-    private Product product;
+    @Deprecated
+    protected TransactionEntry() {
+    }
 
+    public TransactionEntry(TransactionEntryId transactionEntryId, int count) {
+        this.transactionEntryId = transactionEntryId;
+        this.count = count;
+    }
 
+    public TransactionEntryId getTransactionEntryId() {
+        return transactionEntryId;
+    }
+
+    public int getCount() {
+        return count;
+    }
 
 }
