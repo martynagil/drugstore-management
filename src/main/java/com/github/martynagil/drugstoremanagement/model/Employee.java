@@ -26,7 +26,6 @@ public class Employee {
     @Column(nullable = false)
     private LocalDate dateOfEmployment;
 
-    @Column
     private LocalDate dateOfDismissal;
 
     @Column(nullable = false, unique = true)

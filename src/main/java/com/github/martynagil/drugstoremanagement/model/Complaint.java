@@ -2,7 +2,6 @@ package com.github.martynagil.drugstoremanagement.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "complaints")
@@ -13,12 +12,12 @@ public class Complaint {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private LocalDate submissionDate;
 
     @Column(nullable = false)
     private String reason;
 
-    @Column(nullable = false, name = "status")
+    @Column( name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private ComplaintStatus complaintStatus;
 
@@ -32,8 +31,8 @@ public class Complaint {
     protected Complaint() {
     }
 
-    public Complaint(LocalDate date, String reason, ComplaintStatus complaintStatus, Product product, Transaction transaction) {
-        this.date = date;
+    public Complaint(LocalDate submissionDate, String reason, ComplaintStatus complaintStatus, Product product, Transaction transaction) {
+        this.submissionDate = submissionDate;
         this.reason = reason;
         this.complaintStatus = complaintStatus;
         this.product = product;
@@ -44,8 +43,8 @@ public class Complaint {
         return id;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getSubmissionDate() {
+        return submissionDate;
     }
 
     public String getReason() {
