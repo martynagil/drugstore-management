@@ -21,7 +21,7 @@ public class ShopController {
     @GetMapping("/shops")
     public List<ShopDto> getShops() {
         return shopService.getAllShops().stream()
-                .map(ShopDto::from)
+                .map(shop -> ShopDto.from(shop))
                 .collect(Collectors.toList());
     }
 

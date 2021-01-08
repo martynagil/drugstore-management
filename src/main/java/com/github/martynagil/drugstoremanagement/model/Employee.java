@@ -46,15 +46,13 @@ public class Employee {
     protected Employee() {
     }
 
-    public Employee(String name, String surname, String telephoneNumber, LocalDate dateOfEmployment, String email, Shop shop, List<Salary> salaries, List<WorkTime> workTimes) {
+    public Employee(String name, String surname, String telephoneNumber, LocalDate dateOfEmployment, String email, Shop shop) {
         this.name = name;
         this.surname = surname;
         this.telephoneNumber = telephoneNumber;
         this.dateOfEmployment = dateOfEmployment;
         this.email = email;
         this.shop = shop;
-        this.salaries = salaries;
-        this.workTimes = workTimes;
     }
 
     public Long getId() {
@@ -95,5 +93,9 @@ public class Employee {
 
     public List<WorkTime> getWorkTimes() {
         return workTimes;
+    }
+
+    public void setDateOfDismissal(LocalDate dateOfDismissal) {
+        this.dateOfDismissal = dateOfDismissal;
     }
 }
