@@ -3,7 +3,6 @@ package com.github.martynagil.drugstoremanagement.model;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -95,7 +94,7 @@ public class Employee {
         return workTimes;
     }
 
-    public void setDateOfDismissal(LocalDate dateOfDismissal) {
+    public void dismiss(LocalDate dateOfDismissal) {
         this.dateOfDismissal = dateOfDismissal;
     }
 }

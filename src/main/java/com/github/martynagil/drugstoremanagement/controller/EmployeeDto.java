@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.martynagil.drugstoremanagement.model.Employee;
 import com.github.martynagil.drugstoremanagement.model.Shop;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 public class EmployeeDto {
@@ -16,37 +14,33 @@ public class EmployeeDto {
     private String surname;
     private String telephoneNumber;
     private LocalDate dateOfEmployment;
-    private LocalDate dateOfDismissal;
     private String email;
-    private Shop shop;
+    private Long shopId;
 
-    public EmployeeDto(Long id, String name, String surname, String telephoneNumber, LocalDate dateOfEmployment, LocalDate dateOfDismissal, String email, Shop shop) {
+    public EmployeeDto(Long id, String name, String surname, String telephoneNumber, LocalDate dateOfEmployment, String email, Long shopId) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.telephoneNumber = telephoneNumber;
         this.dateOfEmployment = dateOfEmployment;
-        this.dateOfDismissal = dateOfDismissal;
         this.email = email;
-        this.shop = shop;
+        this.shopId = shopId;
     }
 
     @JsonCreator
     public EmployeeDto(
-            @JsonProperty String name,
-            @JsonProperty String surname,
-            @JsonProperty String telephoneNumber,
-            @JsonProperty LocalDate dateOfEmployment,
-            @JsonProperty String email,
-            @JsonProperty Shop shop,
-            @JsonProperty LocalDate dateOfDismissal) {
+            @JsonProperty("name") String name,
+            @JsonProperty("surname") String surname,
+            @JsonProperty("telephoneNumber") String telephoneNumber,
+            @JsonProperty("dateOfEmployment") LocalDate dateOfEmployment,
+            @JsonProperty("email") String email,
+            @JsonProperty("shopId") Long shopId) {
         this.name = name;
         this.surname = surname;
         this.telephoneNumber = telephoneNumber;
         this.dateOfEmployment = dateOfEmployment;
         this.email = email;
-        this.shop = shop;
-        this.dateOfDismissal = dateOfDismissal;
+        this.shopId = shopId;
     }
 
     public static EmployeeDto from(Employee employee) {
@@ -56,10 +50,13 @@ public class EmployeeDto {
                 employee.getSurname(),
                 employee.getTelephoneNumber(),
                 employee.getDateOfEmployment(),
-                employee.getDateOfDismissal(),
                 employee.getEmail(),
-                employee.getShop()
-                );
+                employee.getShop().getId()
+        );
+    }
+
+    public Employee toEntity(Shop shop) {
+        return new Employee(name, surname, telephoneNumber, dateOfEmployment, email, shop);
     }
 
     public Long getId() {
@@ -82,19 +79,11 @@ public class EmployeeDto {
         return dateOfEmployment;
     }
 
-    public LocalDate getDateOfDismissal() {
-        return dateOfDismissal;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public Shop getShop() {
-        return shop;
-    }
-
-    public void setDateOfDismissal(LocalDate dateOfDismissal) {
-        this.dateOfDismissal = dateOfDismissal;
+    public Long getShopId() {
+        return shopId;
     }
 }

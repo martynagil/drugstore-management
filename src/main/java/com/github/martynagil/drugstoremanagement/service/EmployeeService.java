@@ -1,49 +1,42 @@
 package com.github.martynagil.drugstoremanagement.service;
 
+import com.github.martynagil.drugstoremanagement.controller.EmployeeDismissalDto;
 import com.github.martynagil.drugstoremanagement.controller.EmployeeDto;
 import com.github.martynagil.drugstoremanagement.model.Employee;
+import com.github.martynagil.drugstoremanagement.model.Shop;
 import com.github.martynagil.drugstoremanagement.repositories.EmployeeRepository;
+import com.github.martynagil.drugstoremanagement.repositories.ShopRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
 
-    private EmployeeRepository repository;
+    private EmployeeRepository employeeRepository;
+    private ShopRepository shopRepository;
 
-    public EmployeeService(EmployeeRepository repository) {
-        this.repository = repository;
+    public EmployeeService(EmployeeRepository employeeRepository, ShopRepository shopRepository) {
+        this.employeeRepository = employeeRepository;
+        this.shopRepository = shopRepository;
     }
 
     public List<Employee> getAllEmployees() {
-        return repository.findAll();
+        return employeeRepository.findAll();
     }
 
     public void addNewEmployee(EmployeeDto employeeDto) {
-        Employee employee = createEmployeeFromDto(employeeDto);
-        repository.save(employee);
+        Shop shop = shopRepository.findById(employeeDto.getShopId())
+                .orElseThrow(() -> new EntityNotFoundException());
+        employeeRepository.save(employeeDto.toEntity(shop));
     }
 
-//    public List<Employee> getCurrentEmployees() {
-//        return getAllEmployees().stream().
-//    }
-
-    public void dismissEmployee(EmployeeDto employeeDto) {
-//        employeeDto.setDateOfDismissal();
-    }
-
-
-    private Employee createEmployeeFromDto(EmployeeDto employeeDto) {
-        return new Employee(
-                employeeDto.getName(),
-                employeeDto.getSurname(),
-                employeeDto.getTelephoneNumber(),
-                employeeDto.getDateOfEmployment(),
-                employeeDto.getEmail(),
-                employeeDto.getShop()
-        );
+    public void dismissEmployee(Long employeeId, EmployeeDismissalDto employeeDismissalDto) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new EntityNotFoundException());
+        employee.dismiss(employeeDismissalDto.getDismissalDate());
+        employeeRepository.save(employee);
+        // TODO: 08.01.2021 dorobić kiedy już był zwolniony
     }
 }
