@@ -2,7 +2,9 @@ package com.github.martynagil.drugstoremanagement.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -52,6 +54,17 @@ public class Employee {
         this.dateOfEmployment = dateOfEmployment;
         this.email = email;
         this.shop = shop;
+    }
+
+    public void startWork() {
+        workTimes.add(new WorkTime(LocalDateTime.now()));
+    }
+
+    public void endWork() {
+        workTimes.stream()
+                .max(Comparator.comparing(workTime -> workTime.getStartDate()))
+                .orElseThrow(() -> new EntityNotFoundException())
+                .endWork(LocalDateTime.now());
     }
 
     public Long getId() {
