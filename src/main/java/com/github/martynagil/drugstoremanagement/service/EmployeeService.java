@@ -35,8 +35,9 @@ public class EmployeeService {
     public void dismissEmployee(Long employeeId, EmployeeDismissalDto employeeDismissalDto) {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new EntityNotFoundException());
-        employee.dismiss(employeeDismissalDto.getDismissalDate());
-        employeeRepository.save(employee);
-        // TODO: 08.01.2021 dorobić kiedy już był zwolniony
+        if (employee.getDateOfDismissal().equals(null)) {
+            employee.dismiss(employeeDismissalDto.getDismissalDate());
+            employeeRepository.save(employee);
+        }
     }
 }

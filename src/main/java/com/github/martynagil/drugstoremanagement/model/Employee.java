@@ -1,5 +1,7 @@
 package com.github.martynagil.drugstoremanagement.model;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,11 +37,11 @@ public class Employee {
     @ManyToOne(optional = false)
     private Shop shop;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "employee_id", nullable = false)
     private List<Salary> salaries = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "employee_id", nullable = false)
     private List<WorkTime> workTimes = new ArrayList<>();
 
@@ -65,6 +67,10 @@ public class Employee {
                 .max(Comparator.comparing(workTime -> workTime.getStartDate()))
                 .orElseThrow(() -> new EntityNotFoundException())
                 .endWork(LocalDateTime.now());
+    }
+
+    public void addSalary(Salary salary) {
+        salaries.add(salary);
     }
 
     public Long getId() {

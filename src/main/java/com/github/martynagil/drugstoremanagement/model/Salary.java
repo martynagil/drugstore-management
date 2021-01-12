@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Month;
 import java.time.Year;
+import java.time.YearMonth;
 
 @Entity
 @Table(name = "salaries")
@@ -14,10 +15,10 @@ public class Salary {
     private Long id;
 
     @Column(nullable = false)
-    private Year year;
+    private Integer year;
 
     @Column(nullable = false)
-    private Month month;
+    private Integer month;
 
     @Column(nullable = false)
     private BigDecimal amount;
@@ -26,9 +27,9 @@ public class Salary {
     protected Salary() {
     }
 
-    public Salary(Year year, Month month, BigDecimal amount) {
-        this.year = year;
-        this.month = month;
+    public Salary(YearMonth month, BigDecimal amount) {
+        this.year = month.getYear();
+        this.month = month.getMonthValue();
         this.amount = amount;
     }
 
@@ -36,12 +37,8 @@ public class Salary {
         return id;
     }
 
-    public Year getYear() {
-        return year;
-    }
-
-    public Month getMonth() {
-        return month;
+    public YearMonth getMonth() {
+        return YearMonth.of(year, month);
     }
 
     public BigDecimal getAmount() {
