@@ -4,9 +4,11 @@ import com.github.martynagil.drugstoremanagement.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
+@RequestMapping("/employees")
 public class EmployeeController {
 
     private EmployeeService employeeService;
@@ -15,19 +17,19 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/employees")
+    @GetMapping
     public List<EmployeeDto> getEmployees() {
         return employeeService.getAllEmployees().stream()
                 .map(employee -> EmployeeDto.from(employee))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
-    @PostMapping("/employees")
+    @PostMapping
     public void addEmployee(@RequestBody EmployeeDto employeeDto) {
         employeeService.addNewEmployee(employeeDto);
     }
 
-    @PutMapping("/employees/{employeeId}")
+    @PutMapping("/{employeeId}")
     public void dismissEmployee(@RequestBody EmployeeDismissalDto employeeDismissalDto, @PathVariable Long employeeId) {
         employeeService.dismissEmployee(employeeId, employeeDismissalDto);
     }

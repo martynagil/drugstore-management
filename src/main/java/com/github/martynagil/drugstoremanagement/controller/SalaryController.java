@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.*;
 
 @RestController
+@RequestMapping("/employees")
 public class SalaryController {
 
     private SalaryService salaryService;
@@ -18,12 +19,12 @@ public class SalaryController {
         this.salaryService = salaryService;
     }
 
-    @PostMapping("/employees/{employeeId}/salaries")
+    @PostMapping("/{employeeId}/salaries")
     public void addSalary(@PathVariable Long employeeId, @RequestBody SalaryDto salaryDto) {
         salaryService.addSalary(employeeId, salaryDto);
     }
 
-    @GetMapping("/employees/{employeeId}/salaries")
+    @GetMapping("/{employeeId}/salaries")
     public List<SalaryDto> getAnnualSalaries(@PathVariable Long employeeId) {
         return salaryService.getAnnualSalaries(employeeId).stream()
                 .map(salary -> SalaryDto.from(salary))

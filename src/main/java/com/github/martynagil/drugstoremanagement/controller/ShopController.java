@@ -4,9 +4,11 @@ import com.github.martynagil.drugstoremanagement.service.ShopService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
+@RequestMapping("/shops")
 public class ShopController {
 
     private ShopService shopService;
@@ -15,21 +17,21 @@ public class ShopController {
         this.shopService = shopService;
     }
 
-    @GetMapping("/shops")
+    @GetMapping
     public List<ShopDto> getShops() {
         return shopService.getAllShops().stream()
                 .map(shop -> ShopDto.from(shop))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
-    @GetMapping("/shops/{shopId}/employees")
+    @GetMapping("/{shopId}/employees")
     public List<EmployeeDto> getEmployees(@PathVariable Long shopId) {
         return shopService.getEmployees(shopId).stream()
                 .map(employee -> EmployeeDto.from(employee))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
-    @PostMapping("/shops")
+    @PostMapping
     public void addShop(@RequestBody ShopDto shopDto) {
         shopService.addNewShop(shopDto);
     }

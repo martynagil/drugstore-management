@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class WorkTimeService {
 
-    EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
 
     public WorkTimeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
@@ -23,28 +23,28 @@ public class WorkTimeService {
 
     @Transactional
     public void startWork(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new EntityNotFoundException());
+        Employee employee = findEmployee(employeeId);
         employee.startWork();
     }
 
     @Transactional
     public void endWork(Long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new EntityNotFoundException());
+        Employee employee = findEmployee(employeeId);
         employee.endWork();
     }
 
-    
     public List<WorkTime> getMonthlyWorkTimes(Long employeeId) {
-        return employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new EntityNotFoundException())
+        return findEmployee(employeeId)
                 .getWorkTimes()
                 .stream()
                 .filter(workTime -> {
-                    return workTime.getEndDate().getMonth().equals(LocalDateTime.now().getMonth());
+                    return LocalDateTime.now().getMonth().equals(workTime.getEndDate().getMonth());
                 })
-                .collect(toList()
-                );
+                .collect(toList());
+    }
+
+    private Employee findEmployee(Long employeeId) {
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new EntityNotFoundException());
     }
 }

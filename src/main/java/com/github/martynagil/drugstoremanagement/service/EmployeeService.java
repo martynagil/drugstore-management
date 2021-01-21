@@ -35,9 +35,11 @@ public class EmployeeService {
     public void dismissEmployee(Long employeeId, EmployeeDismissalDto employeeDismissalDto) {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new EntityNotFoundException());
-        if (employee.getDateOfDismissal().equals(null)) {
+        if (employee.getDateOfDismissal() == null) {
             employee.dismiss(employeeDismissalDto.getDismissalDate());
             employeeRepository.save(employee);
+        } else {
+            throw new IllegalStateException();
         }
     }
 }
