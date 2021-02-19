@@ -4,7 +4,6 @@ import com.github.martynagil.drugstoremanagement.controller.SalaryDto;
 import com.github.martynagil.drugstoremanagement.model.Employee;
 import com.github.martynagil.drugstoremanagement.model.Salary;
 import com.github.martynagil.drugstoremanagement.repositories.EmployeeRepository;
-import com.github.martynagil.drugstoremanagement.repositories.SalaryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
