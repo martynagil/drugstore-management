@@ -28,7 +28,7 @@ public class SalaryService {
     }
 
     @Transactional
-    public void addSalary(Long employeeId, SalaryDto salaryDto) throws SalaryAlreadyExistsException {
+    public void addSalary(Long employeeId, SalaryDto salaryDto) {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new EntityNotFoundException());
 

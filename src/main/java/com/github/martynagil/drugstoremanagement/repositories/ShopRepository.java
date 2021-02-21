@@ -7,6 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
-    Boolean existsByNameAndAddressCity(String name, String city);
-
 }

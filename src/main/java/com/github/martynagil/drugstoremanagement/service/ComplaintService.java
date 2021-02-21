@@ -28,7 +28,7 @@ public class ComplaintService {
         this.transactionRepository = transactionRepository;
     }
 
-    public void addComplaint(ComplaintDto complaintDto) throws ComplaintAlreadyExistsException {
+    public void addComplaint(ComplaintDto complaintDto) {
         if (complaintExists(complaintDto)) {
             throw new ComplaintAlreadyExistsException();
         }

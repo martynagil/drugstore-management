@@ -1,8 +1,5 @@
 package com.github.martynagil.drugstoremanagement.exceptions;
 
-public class ComplaintAlreadyExistsException extends Exception {
+public class ComplaintAlreadyExistsException extends RuntimeException {
 
-    public ComplaintAlreadyExistsException() {
-        super();
-    }
 }
