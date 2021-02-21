@@ -1,7 +1,5 @@
 package com.github.martynagil.drugstoremanagement.model;
 
-import com.github.martynagil.drugstoremanagement.controller.ComplaintUpdateDto;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -19,7 +17,7 @@ public class Complaint {
     @Column(nullable = false)
     private String reason;
 
-    @Column( name = "status", nullable = false)
+    @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private ComplaintStatus complaintStatus;
 
@@ -42,7 +40,10 @@ public class Complaint {
     }
 
     public void updateStatus(ComplaintStatus complaintStatus) {
-        this.complaintStatus = complaintStatus;
+        if (this.complaintStatus == ComplaintStatus.SUBMITTED
+                && complaintStatus != ComplaintStatus.SUBMITTED) {
+            this.complaintStatus = complaintStatus;
+        }
     }
 
     public Long getId() {

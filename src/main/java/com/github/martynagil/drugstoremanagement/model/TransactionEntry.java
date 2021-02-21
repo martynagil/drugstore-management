@@ -1,6 +1,9 @@
 package com.github.martynagil.drugstoremanagement.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "transaction_entries")
@@ -28,7 +31,6 @@ public class TransactionEntry {
     public int getCount() {
         return count;
     }
-
 
 
 }

@@ -1,13 +1,11 @@
 package com.github.martynagil.drugstoremanagement.controller;
 
-import com.github.martynagil.drugstoremanagement.model.Salary;
 import com.github.martynagil.drugstoremanagement.service.SalaryService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/employees")

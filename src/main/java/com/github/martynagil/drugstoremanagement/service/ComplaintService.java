@@ -7,6 +7,7 @@ import com.github.martynagil.drugstoremanagement.repositories.ComplaintRepositor
 import com.github.martynagil.drugstoremanagement.repositories.ProductRepository;
 import com.github.martynagil.drugstoremanagement.repositories.TransactionRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -18,13 +19,17 @@ public class ComplaintService {
     private TransactionRepository transactionRepository;
 
 
-    public ComplaintService(ComplaintRepository complaintRepository) {
+    public ComplaintService(ComplaintRepository complaintRepository, ProductRepository productRepository, TransactionRepository transactionRepository) {
         this.complaintRepository = complaintRepository;
+        this.productRepository = productRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     public void addComplaint(ComplaintDto complaintDto) {
-        Complaint complaint = createComplainFromDto(complaintDto);
-        complaintRepository.save(complaint);
+        if (!complaintRepository.existsById(complaintDto.getId())) {
+            Complaint complaint = createComplainFromDto(complaintDto);
+            complaintRepository.save(complaint);
+        }
     }
 
     private Complaint createComplainFromDto(ComplaintDto complaintDto) {
@@ -34,14 +39,14 @@ public class ComplaintService {
                 productRepository.findById(complaintDto.getProductId())
                         .orElseThrow(EntityNotFoundException::new),
                 transactionRepository.findById(complaintDto.getTransactionId())
-                .orElseThrow(EntityNotFoundException::new)
+                        .orElseThrow(EntityNotFoundException::new)
         );
     }
 
+    @Transactional
     public void updateComplaint(ComplaintUpdateDto complaintUpdateDto, Long complaintId) {
         Complaint complaint = complaintRepository.findById(complaintId)
                 .orElseThrow(EntityNotFoundException::new);
         complaint.updateStatus(complaintUpdateDto.getComplaintStatus());
-        complaintRepository.save(complaint);
     }
 }

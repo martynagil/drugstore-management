@@ -1,7 +1,5 @@
 package com.github.martynagil.drugstoremanagement.model;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -73,6 +71,12 @@ public class Employee {
         salaries.add(salary);
     }
 
+    public void dismiss(LocalDate dateOfDismissal) {
+        if (isNotDissmised()) {
+            this.dateOfDismissal = dateOfDismissal;
+        }
+    }
+
     public Long getId() {
         return id;
     }
@@ -113,7 +117,8 @@ public class Employee {
         return workTimes;
     }
 
-    public void dismiss(LocalDate dateOfDismissal) {
-        this.dateOfDismissal = dateOfDismissal;
+    private boolean isNotDissmised() {
+        return dateOfDismissal == null;
     }
+
 }

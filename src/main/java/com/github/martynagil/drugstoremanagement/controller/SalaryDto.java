@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.github.martynagil.drugstoremanagement.model.Salary;
 
 import java.math.BigDecimal;
-import java.time.Month;
-import java.time.Year;
 import java.time.YearMonth;
 
 public class SalaryDto {

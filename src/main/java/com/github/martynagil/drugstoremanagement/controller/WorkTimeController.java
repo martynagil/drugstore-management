@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/employees/{employeeId}/work-time")
 public class WorkTimeController {
 
     private WorkTimeService workTimeService;
@@ -16,17 +16,17 @@ public class WorkTimeController {
         this.workTimeService = workTimeService;
     }
 
-    @PostMapping("/{employeeId}/workTime/start")
+    @PostMapping("/start")
     public void startWork(@PathVariable Long employeeId) {
         workTimeService.startWork(employeeId);
     }
 
-    @PostMapping("/{employeeId}/workTime/end")
+    @PostMapping("/end")
     public void endWork(@PathVariable Long employeeId) {
         workTimeService.endWork(employeeId);
     }
 
-    @GetMapping("/{employeeId}/workTime/month")
+    @GetMapping("/month")
     public List<WorkTime> getMonthlyWorkTimes(@PathVariable Long employeeId) {
         return workTimeService.getMonthlyWorkTimes(employeeId);
     }

@@ -7,6 +7,7 @@ import com.github.martynagil.drugstoremanagement.model.Shop;
 import com.github.martynagil.drugstoremanagement.repositories.EmployeeRepository;
 import com.github.martynagil.drugstoremanagement.repositories.ShopRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -32,14 +33,10 @@ public class EmployeeService {
         employeeRepository.save(employeeDto.toEntity(shop));
     }
 
+    @Transactional
     public void dismissEmployee(Long employeeId, EmployeeDismissalDto employeeDismissalDto) {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new EntityNotFoundException());
-        if (employee.getDateOfDismissal() == null) {
-            employee.dismiss(employeeDismissalDto.getDismissalDate());
-            employeeRepository.save(employee);
-        } else {
-            throw new IllegalStateException();
-        }
+        employee.dismiss(employeeDismissalDto.getDismissalDate());
     }
 }

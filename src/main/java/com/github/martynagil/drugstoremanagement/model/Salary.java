@@ -2,8 +2,6 @@ package com.github.martynagil.drugstoremanagement.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.Month;
-import java.time.Year;
 import java.time.YearMonth;
 
 @Entity
