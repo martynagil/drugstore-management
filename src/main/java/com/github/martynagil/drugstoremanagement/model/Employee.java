@@ -72,7 +72,7 @@ public class Employee {
     }
 
     public void dismiss(LocalDate dateOfDismissal) {
-        if (isNotDissmised()) {
+        if (!isDismissed()) {
             this.dateOfDismissal = dateOfDismissal;
         }
     }
@@ -117,8 +117,8 @@ public class Employee {
         return workTimes;
     }
 
-    private boolean isNotDissmised() {
-        return dateOfDismissal == null;
+    private boolean isDismissed() {
+        return dateOfDismissal != null;
     }
 
 }

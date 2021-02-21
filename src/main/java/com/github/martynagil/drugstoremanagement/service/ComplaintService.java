@@ -3,12 +3,14 @@ package com.github.martynagil.drugstoremanagement.service;
 import com.github.martynagil.drugstoremanagement.controller.ComplaintDto;
 import com.github.martynagil.drugstoremanagement.controller.ComplaintUpdateDto;
 import com.github.martynagil.drugstoremanagement.model.Complaint;
+import com.github.martynagil.drugstoremanagement.model.ComplaintStatus;
 import com.github.martynagil.drugstoremanagement.repositories.ComplaintRepository;
 import com.github.martynagil.drugstoremanagement.repositories.ProductRepository;
 import com.github.martynagil.drugstoremanagement.repositories.TransactionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
 @Service
@@ -26,10 +28,27 @@ public class ComplaintService {
     }
 
     public void addComplaint(ComplaintDto complaintDto) {
-        if (!complaintRepository.existsById(complaintDto.getId())) {
-            Complaint complaint = createComplainFromDto(complaintDto);
-            complaintRepository.save(complaint);
+        if (complaintExists(complaintDto)) {
+            throw new EntityExistsException();
         }
+
+        Complaint complaint = createComplainFromDto(complaintDto);
+        complaintRepository.save(complaint);
+    }
+
+    @Transactional
+    public void updateComplaint(ComplaintUpdateDto complaintUpdateDto, Long complaintId) {
+        Complaint complaint = complaintRepository.findById(complaintId)
+                .orElseThrow(EntityNotFoundException::new);
+        complaint.updateStatus(complaintUpdateDto.getComplaintStatus());
+    }
+
+    private Boolean complaintExists(ComplaintDto complaintDto) {
+        return complaintRepository
+                .existsByTransactionIdAndProductIdAndComplaintStatus(
+                        complaintDto.getTransactionId(),
+                        complaintDto.getProductId(),
+                        ComplaintStatus.SUBMITTED);
     }
 
     private Complaint createComplainFromDto(ComplaintDto complaintDto) {
@@ -41,12 +60,5 @@ public class ComplaintService {
                 transactionRepository.findById(complaintDto.getTransactionId())
                         .orElseThrow(EntityNotFoundException::new)
         );
-    }
-
-    @Transactional
-    public void updateComplaint(ComplaintUpdateDto complaintUpdateDto, Long complaintId) {
-        Complaint complaint = complaintRepository.findById(complaintId)
-                .orElseThrow(EntityNotFoundException::new);
-        complaint.updateStatus(complaintUpdateDto.getComplaintStatus());
     }
 }
