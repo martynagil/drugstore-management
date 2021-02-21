@@ -1,9 +1,7 @@
 package com.github.martynagil.drugstoremanagement.service;
 
-import com.github.martynagil.drugstoremanagement.controller.ComplaintDto;
 import com.github.martynagil.drugstoremanagement.controller.EmployeeDismissalDto;
 import com.github.martynagil.drugstoremanagement.controller.EmployeeDto;
-import com.github.martynagil.drugstoremanagement.model.ComplaintStatus;
 import com.github.martynagil.drugstoremanagement.model.Employee;
 import com.github.martynagil.drugstoremanagement.model.Shop;
 import com.github.martynagil.drugstoremanagement.repositories.EmployeeRepository;
@@ -11,7 +9,6 @@ import com.github.martynagil.drugstoremanagement.repositories.ShopRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
@@ -34,10 +31,6 @@ public class EmployeeService {
         Shop shop = shopRepository.findById(employeeDto.getShopId())
                 .orElseThrow(() -> new EntityNotFoundException());
 
-        if (employeeExists(employeeDto)) {
-            throw new EntityExistsException();
-        }
-
         employeeRepository.save(employeeDto.toEntity(shop));
     }
 
@@ -48,13 +41,4 @@ public class EmployeeService {
         employee.dismiss(employeeDismissalDto.getDismissalDate());
     }
 
-    private Boolean employeeExists(EmployeeDto employeeDto) {
-        return employeeRepository
-                .existsByNameAndSurnameAndDateOfEmploymentAndShopId(
-                        employeeDto.getName(),
-                        employeeDto.getSurname(),
-                        employeeDto.getDateOfEmployment(),
-                        employeeDto.getShopId()
-                );
-    }
 }

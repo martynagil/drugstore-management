@@ -8,7 +8,6 @@ import com.github.martynagil.drugstoremanagement.repositories.EmployeeRepository
 import com.github.martynagil.drugstoremanagement.repositories.ShopRepository;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityExistsException;
 import java.util.List;
 
 @Service
@@ -27,9 +26,6 @@ public class ShopService {
     }
 
     public void addNewShop(ShopDto shopDto) {
-        if (shopExists(shopDto)) {
-            throw new EntityExistsException();
-        }
         Shop shop = createShopFromDto(shopDto);
         shopRepository.save(shop);
     }
@@ -47,13 +43,5 @@ public class ShopService {
                         shopDto.getStreetAndNumber()
                 )
         );
-    }
-
-    private Boolean shopExists(ShopDto shopDto) {
-        return shopRepository
-                .existsByNameAndAddress_City(
-                        shopDto.getName(),
-                        shopDto.getCity()
-                );
     }
 }

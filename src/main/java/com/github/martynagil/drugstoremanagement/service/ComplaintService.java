@@ -2,6 +2,7 @@ package com.github.martynagil.drugstoremanagement.service;
 
 import com.github.martynagil.drugstoremanagement.controller.ComplaintDto;
 import com.github.martynagil.drugstoremanagement.controller.ComplaintUpdateDto;
+import com.github.martynagil.drugstoremanagement.exceptions.ComplaintAlreadyExistsException;
 import com.github.martynagil.drugstoremanagement.model.Complaint;
 import com.github.martynagil.drugstoremanagement.model.ComplaintStatus;
 import com.github.martynagil.drugstoremanagement.repositories.ComplaintRepository;
@@ -27,9 +28,9 @@ public class ComplaintService {
         this.transactionRepository = transactionRepository;
     }
 
-    public void addComplaint(ComplaintDto complaintDto) {
+    public void addComplaint(ComplaintDto complaintDto) throws ComplaintAlreadyExistsException {
         if (complaintExists(complaintDto)) {
-            throw new EntityExistsException();
+            throw new ComplaintAlreadyExistsException();
         }
 
         Complaint complaint = createComplainFromDto(complaintDto);
@@ -44,8 +45,7 @@ public class ComplaintService {
     }
 
     private Boolean complaintExists(ComplaintDto complaintDto) {
-        return complaintRepository
-                .existsByTransactionIdAndProductIdAndComplaintStatus(
+        return complaintRepository.existsByTransactionIdAndProductIdAndComplaintStatus(
                         complaintDto.getTransactionId(),
                         complaintDto.getProductId(),
                         ComplaintStatus.SUBMITTED);

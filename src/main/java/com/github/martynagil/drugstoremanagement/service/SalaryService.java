@@ -1,6 +1,7 @@
 package com.github.martynagil.drugstoremanagement.service;
 
 import com.github.martynagil.drugstoremanagement.controller.SalaryDto;
+import com.github.martynagil.drugstoremanagement.exceptions.SalaryAlreadyExistsException;
 import com.github.martynagil.drugstoremanagement.model.Employee;
 import com.github.martynagil.drugstoremanagement.model.Salary;
 import com.github.martynagil.drugstoremanagement.repositories.EmployeeRepository;
@@ -27,12 +28,12 @@ public class SalaryService {
     }
 
     @Transactional
-    public void addSalary(Long employeeId, SalaryDto salaryDto) {
+    public void addSalary(Long employeeId, SalaryDto salaryDto) throws SalaryAlreadyExistsException {
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new EntityNotFoundException());
 
         if (salaryExists(salaryDto)) {
-            throw new EntityExistsException();
+            throw new SalaryAlreadyExistsException("Month: " + salaryDto.getMonth());
         }
 
         Salary salary = createSalaryFromDto(salaryDto);
@@ -58,9 +59,6 @@ public class SalaryService {
     }
 
     private Boolean salaryExists(SalaryDto salaryDto) {
-        return salaryRepository
-                .existsByMonth(
-                        salaryDto.getMonth()
-                );
+        return salaryRepository.existsByMonth(salaryDto.getMonth());
     }
 }
