@@ -17,7 +17,7 @@ public class Complaint {
     @Column(nullable = false)
     private String reason;
 
-    @Column( name = "status", nullable = false)
+    @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private ComplaintStatus complaintStatus;
 
@@ -31,12 +31,19 @@ public class Complaint {
     protected Complaint() {
     }
 
-    public Complaint(LocalDate submissionDate, String reason, ComplaintStatus complaintStatus, Product product, Transaction transaction) {
+    public Complaint(LocalDate submissionDate, String reason, Product product, Transaction transaction) {
         this.submissionDate = submissionDate;
         this.reason = reason;
-        this.complaintStatus = complaintStatus;
+        complaintStatus = ComplaintStatus.SUBMITTED;
         this.product = product;
         this.transaction = transaction;
+    }
+
+    public void updateStatus(ComplaintStatus complaintStatus) {
+        if (this.complaintStatus == ComplaintStatus.SUBMITTED
+                && complaintStatus != ComplaintStatus.SUBMITTED) {
+            this.complaintStatus = complaintStatus;
+        }
     }
 
     public Long getId() {

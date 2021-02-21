@@ -36,4 +36,10 @@ public class WorkTime {
     public LocalDateTime getEndDate() {
         return endDate;
     }
+
+    public void endWork(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+
 }

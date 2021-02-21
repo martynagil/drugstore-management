@@ -15,7 +15,7 @@ public class Shop {
     @Column(nullable = false)
     private String name;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
     private Address address;
 
     @OneToMany(mappedBy = "stockEntryId.shop")
@@ -25,10 +25,9 @@ public class Shop {
     protected Shop() {
     }
 
-    public Shop(String name, Address address, List<StockEntry> stockEntries) {
+    public Shop(String name, Address address) {
         this.name = name;
         this.address = address;
-        this.stockEntries = stockEntries;
     }
 
     public Long getId() {

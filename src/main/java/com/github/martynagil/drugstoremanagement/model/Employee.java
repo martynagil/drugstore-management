@@ -2,8 +2,9 @@ package com.github.martynagil.drugstoremanagement.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -34,11 +35,11 @@ public class Employee {
     @ManyToOne(optional = false)
     private Shop shop;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "employee_id", nullable = false)
     private List<Salary> salaries = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "employee_id", nullable = false)
     private List<WorkTime> workTimes = new ArrayList<>();
 
@@ -46,15 +47,34 @@ public class Employee {
     protected Employee() {
     }
 
-    public Employee(String name, String surname, String telephoneNumber, LocalDate dateOfEmployment, String email, Shop shop, List<Salary> salaries, List<WorkTime> workTimes) {
+    public Employee(String name, String surname, String telephoneNumber, LocalDate dateOfEmployment, String email, Shop shop) {
         this.name = name;
         this.surname = surname;
         this.telephoneNumber = telephoneNumber;
         this.dateOfEmployment = dateOfEmployment;
         this.email = email;
         this.shop = shop;
-        this.salaries = salaries;
-        this.workTimes = workTimes;
+    }
+
+    public void startWork() {
+        workTimes.add(new WorkTime(LocalDateTime.now()));
+    }
+
+    public void endWork() {
+        workTimes.stream()
+                .max(Comparator.comparing(workTime -> workTime.getStartDate()))
+                .orElseThrow(() -> new EntityNotFoundException())
+                .endWork(LocalDateTime.now());
+    }
+
+    public void addSalary(Salary salary) {
+        salaries.add(salary);
+    }
+
+    public void dismiss(LocalDate dateOfDismissal) {
+        if (!isDismissed()) {
+            this.dateOfDismissal = dateOfDismissal;
+        }
     }
 
     public Long getId() {
@@ -96,4 +116,9 @@ public class Employee {
     public List<WorkTime> getWorkTimes() {
         return workTimes;
     }
+
+    private boolean isDismissed() {
+        return dateOfDismissal != null;
+    }
+
 }
