@@ -1,7 +1,7 @@
 package com.github.martynagil.drugstoremanagement.service;
 
-import com.github.martynagil.drugstoremanagement.controller.ComplaintDto;
-import com.github.martynagil.drugstoremanagement.controller.ComplaintUpdateDto;
+import com.github.martynagil.drugstoremanagement.dto.ComplaintDto;
+import com.github.martynagil.drugstoremanagement.dto.ComplaintUpdateDto;
 import com.github.martynagil.drugstoremanagement.exceptions.ComplaintAlreadyExistsException;
 import com.github.martynagil.drugstoremanagement.model.Complaint;
 import com.github.martynagil.drugstoremanagement.model.ComplaintStatus;
@@ -11,7 +11,6 @@ import com.github.martynagil.drugstoremanagement.repositories.TransactionReposit
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
 @Service
@@ -46,9 +45,9 @@ public class ComplaintService {
 
     private Boolean complaintExists(ComplaintDto complaintDto) {
         return complaintRepository.existsByTransactionIdAndProductIdAndComplaintStatus(
-                        complaintDto.getTransactionId(),
-                        complaintDto.getProductId(),
-                        ComplaintStatus.SUBMITTED);
+                complaintDto.getTransactionId(),
+                complaintDto.getProductId(),
+                ComplaintStatus.SUBMITTED);
     }
 
     private Complaint createComplainFromDto(ComplaintDto complaintDto) {

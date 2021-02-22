@@ -1,6 +1,6 @@
 package com.github.martynagil.drugstoremanagement.service;
 
-import com.github.martynagil.drugstoremanagement.controller.SalaryDto;
+import com.github.martynagil.drugstoremanagement.dto.SalaryDto;
 import com.github.martynagil.drugstoremanagement.exceptions.SalaryAlreadyExistsException;
 import com.github.martynagil.drugstoremanagement.model.Employee;
 import com.github.martynagil.drugstoremanagement.model.Salary;
@@ -9,7 +9,6 @@ import com.github.martynagil.drugstoremanagement.repositories.SalaryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.time.YearMonth;
 import java.util.List;

@@ -1,5 +1,7 @@
 package com.github.martynagil.drugstoremanagement.controller;
 
+import com.github.martynagil.drugstoremanagement.dto.ComplaintDto;
+import com.github.martynagil.drugstoremanagement.dto.ComplaintUpdateDto;
 import com.github.martynagil.drugstoremanagement.service.ComplaintService;
 import org.springframework.web.bind.annotation.*;
 
