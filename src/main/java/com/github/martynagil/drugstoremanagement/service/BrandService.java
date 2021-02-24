@@ -15,6 +15,11 @@ public class BrandService {
     private BrandRepository brandRepository;
     private ProducerRepository producerRepository;
 
+    public BrandService(BrandRepository brandRepository, ProducerRepository producerRepository) {
+        this.brandRepository = brandRepository;
+        this.producerRepository = producerRepository;
+    }
+
     public void addBrand(BrandDto brandDto) {
         if (brandExists(brandDto)) {
             throw new BrandAlreadyExistsException();

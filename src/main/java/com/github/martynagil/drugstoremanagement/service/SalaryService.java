@@ -21,9 +21,9 @@ public class SalaryService {
     private EmployeeRepository employeeRepository;
     private SalaryRepository salaryRepository;
 
-    public SalaryService(EmployeeRepository employeeRepository) {
+    public SalaryService(EmployeeRepository employeeRepository, SalaryRepository salaryRepository) {
         this.employeeRepository = employeeRepository;
-
+        this.salaryRepository = salaryRepository;
     }
 
     @Transactional

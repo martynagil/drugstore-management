@@ -17,6 +17,12 @@ public class ProductService {
     private BrandRepository brandRepository;
     private ProductTypeRepository productTypeRepository;
 
+    public ProductService(ProductRepository productRepository, BrandRepository brandRepository, ProductTypeRepository productTypeRepository) {
+        this.productRepository = productRepository;
+        this.brandRepository = brandRepository;
+        this.productTypeRepository = productTypeRepository;
+    }
+
     public void addProduct(ProductDto productDto) {
         if (productExists(productDto)) {
             throw new ProductTypeAlreadyExistsException();
