@@ -7,6 +7,7 @@ import com.github.martynagil.drugstoremanagement.repositories.BrandRepository;
 import com.github.martynagil.drugstoremanagement.repositories.ProductRepository;
 import com.github.martynagil.drugstoremanagement.repositories.ProductTypeRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -23,13 +24,13 @@ public class ProductService {
         this.productTypeRepository = productTypeRepository;
     }
 
+    @Transactional
     public void addProduct(ProductDto productDto) {
         if (productExists(productDto)) {
             throw new ProductTypeAlreadyExistsException();
         }
 
         Product product = createProductFromDto(productDto);
-        productRepository.save(product);
     }
 
     private Product createProductFromDto(ProductDto productDto) {

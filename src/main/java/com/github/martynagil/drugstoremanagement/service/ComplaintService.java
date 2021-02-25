@@ -27,13 +27,13 @@ public class ComplaintService {
         this.transactionRepository = transactionRepository;
     }
 
+    @Transactional
     public void addComplaint(ComplaintDto complaintDto) {
         if (complaintExists(complaintDto)) {
             throw new ComplaintAlreadyExistsException();
         }
 
         Complaint complaint = createComplainFromDto(complaintDto);
-        complaintRepository.save(complaint);
     }
 
     @Transactional

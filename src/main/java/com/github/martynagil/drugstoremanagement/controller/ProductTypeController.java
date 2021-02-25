@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("product-types")
+@RequestMapping("/product-types")
 public class ProductTypeController {
 
-    ProductTypeService productTypeService;
+    private ProductTypeService productTypeService;
 
     public ProductTypeController(ProductTypeService productTypeService) {
         this.productTypeService = productTypeService;

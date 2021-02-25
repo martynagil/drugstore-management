@@ -7,12 +7,12 @@ import java.math.BigDecimal;
 
 public class ProductDto {
 
-    Long id;
-    String name;
-    String barcode;
-    BigDecimal price;
-    Long brandId;
-    Long productTypeId;
+    private Long id;
+    private String name;
+    private String barcode;
+    private BigDecimal price;
+    private Long brandId;
+    private Long productTypeId;
 
     public ProductDto(Long id, String name, String barcode, BigDecimal price, Long brandId, Long productTypeId) {
         this.id = id;

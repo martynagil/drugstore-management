@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 
 public class WorkTimeDto {
 
-    Long id;
-    LocalDateTime startDate;
-    LocalDateTime endDate;
+    private Long id;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     public WorkTimeDto(Long id, LocalDateTime startDate, LocalDateTime endDate) {
         this.id = id;
@@ -21,7 +21,7 @@ public class WorkTimeDto {
     public WorkTimeDto(
             @JsonProperty("startDate") LocalDateTime startDate,
             @JsonProperty("endDate") LocalDateTime endDate
-            ) {
+    ) {
         this.startDate = startDate;
         this.endDate = endDate;
     }

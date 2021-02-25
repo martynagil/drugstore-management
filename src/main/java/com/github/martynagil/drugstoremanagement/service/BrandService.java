@@ -6,6 +6,7 @@ import com.github.martynagil.drugstoremanagement.model.Brand;
 import com.github.martynagil.drugstoremanagement.repositories.BrandRepository;
 import com.github.martynagil.drugstoremanagement.repositories.ProducerRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -20,13 +21,13 @@ public class BrandService {
         this.producerRepository = producerRepository;
     }
 
+    @Transactional
     public void addBrand(BrandDto brandDto) {
         if (brandExists(brandDto)) {
             throw new BrandAlreadyExistsException();
         }
 
         Brand brand = createBrandFromDto(brandDto);
-        brandRepository.save(brand);
     }
 
     private Brand createBrandFromDto(BrandDto brandDto) {

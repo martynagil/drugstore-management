@@ -20,7 +20,6 @@ public class BrandDto {
     }
 
     @JsonCreator
-
     public BrandDto(
             @JsonProperty("name") String name,
             @JsonProperty("email") String email,

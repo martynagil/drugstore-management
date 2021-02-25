@@ -5,24 +5,25 @@ import com.github.martynagil.drugstoremanagement.exceptions.ProductTypeAlreadyEx
 import com.github.martynagil.drugstoremanagement.model.ProductType;
 import com.github.martynagil.drugstoremanagement.repositories.ProductTypeRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductTypeService {
 
-    ProductTypeRepository productTypeRepository;
+    private ProductTypeRepository productTypeRepository;
 
     public ProductTypeService(ProductTypeRepository productTypeRepository) {
         this.productTypeRepository = productTypeRepository;
     }
 
 
+    @Transactional
     public void addProductType(ProductTypeDto productTypeDto) {
         if (productTypeExists(productTypeDto)) {
             throw new ProductTypeAlreadyExistsException();
         }
 
         ProductType productType = createProductTypeFromDto(productTypeDto);
-        productTypeRepository.save(productType);
     }
 
     private ProductType createProductTypeFromDto(ProductTypeDto productTypeDto) {
