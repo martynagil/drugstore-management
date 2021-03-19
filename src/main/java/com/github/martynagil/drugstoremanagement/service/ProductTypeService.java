@@ -16,7 +16,6 @@ public class ProductTypeService {
         this.productTypeRepository = productTypeRepository;
     }
 
-
     @Transactional
     public void addProductType(ProductTypeDto productTypeDto) {
         if (productTypeExists(productTypeDto)) {
