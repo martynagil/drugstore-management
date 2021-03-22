@@ -1,7 +1,7 @@
 package com.github.martynagil.drugstoremanagement.service;
 
-import com.github.martynagil.drugstoremanagement.controller.EmployeeDismissalDto;
-import com.github.martynagil.drugstoremanagement.controller.EmployeeDto;
+import com.github.martynagil.drugstoremanagement.dto.EmployeeDismissalDto;
+import com.github.martynagil.drugstoremanagement.dto.EmployeeDto;
 import com.github.martynagil.drugstoremanagement.model.Employee;
 import com.github.martynagil.drugstoremanagement.model.Shop;
 import com.github.martynagil.drugstoremanagement.repositories.EmployeeRepository;
@@ -27,6 +27,7 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    @Transactional
     public void addNewEmployee(EmployeeDto employeeDto) {
         Shop shop = shopRepository.findById(employeeDto.getShopId())
                 .orElseThrow(() -> new EntityNotFoundException());

@@ -1,6 +1,6 @@
 package com.github.martynagil.drugstoremanagement.service;
 
-import com.github.martynagil.drugstoremanagement.controller.ShopDto;
+import com.github.martynagil.drugstoremanagement.dto.ShopDto;
 import com.github.martynagil.drugstoremanagement.model.Address;
 import com.github.martynagil.drugstoremanagement.model.Employee;
 import com.github.martynagil.drugstoremanagement.model.Shop;

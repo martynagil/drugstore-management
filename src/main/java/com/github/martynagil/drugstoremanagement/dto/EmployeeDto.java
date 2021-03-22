@@ -1,4 +1,4 @@
-package com.github.martynagil.drugstoremanagement.controller;
+package com.github.martynagil.drugstoremanagement.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

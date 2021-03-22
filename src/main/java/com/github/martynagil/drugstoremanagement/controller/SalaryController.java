@@ -1,5 +1,6 @@
 package com.github.martynagil.drugstoremanagement.controller;
 
+import com.github.martynagil.drugstoremanagement.dto.SalaryDto;
 import com.github.martynagil.drugstoremanagement.service.SalaryService;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
 package com.github.martynagil.drugstoremanagement.service;
 
-import com.github.martynagil.drugstoremanagement.controller.SalaryDto;
+import com.github.martynagil.drugstoremanagement.dto.SalaryDto;
 import com.github.martynagil.drugstoremanagement.exceptions.SalaryAlreadyExistsException;
 import com.github.martynagil.drugstoremanagement.model.Employee;
 import com.github.martynagil.drugstoremanagement.model.Salary;
@@ -9,7 +9,6 @@ import com.github.martynagil.drugstoremanagement.repositories.SalaryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.time.YearMonth;
 import java.util.List;
@@ -22,9 +21,9 @@ public class SalaryService {
     private EmployeeRepository employeeRepository;
     private SalaryRepository salaryRepository;
 
-    public SalaryService(EmployeeRepository employeeRepository) {
+    public SalaryService(EmployeeRepository employeeRepository, SalaryRepository salaryRepository) {
         this.employeeRepository = employeeRepository;
-
+        this.salaryRepository = salaryRepository;
     }
 
     @Transactional
@@ -38,6 +37,7 @@ public class SalaryService {
 
         Salary salary = createSalaryFromDto(salaryDto);
         employee.addSalary(salary);
+        // TODO: 22.03.2021
     }
 
     public List<Salary> getAnnualSalaries(Long employeeId) {

@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
 
-    Boolean existsByTransactionIdAndProductIdAndComplaintStatus(Long transactionId, Long productId, ComplaintStatus status);
+    boolean existsByTransactionIdAndProductIdAndComplaintStatus(Long transactionId, Long productId, ComplaintStatus status);
 }

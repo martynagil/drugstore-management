@@ -1,5 +1,7 @@
 package com.github.martynagil.drugstoremanagement.controller;
 
+import com.github.martynagil.drugstoremanagement.dto.EmployeeDismissalDto;
+import com.github.martynagil.drugstoremanagement.dto.EmployeeDto;
 import com.github.martynagil.drugstoremanagement.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
