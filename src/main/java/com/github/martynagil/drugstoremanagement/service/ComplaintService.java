@@ -34,6 +34,7 @@ public class ComplaintService {
         }
 
         Complaint complaint = createComplainFromDto(complaintDto);
+        complaintRepository.save(complaint);
     }
 
     @Transactional

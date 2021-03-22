@@ -31,6 +31,7 @@ public class ProductService {
         }
 
         Product product = createProductFromDto(productDto);
+        productRepository.save(product);
     }
 
     private Product createProductFromDto(ProductDto productDto) {

@@ -23,6 +23,7 @@ public class ProductTypeService {
         }
 
         ProductType productType = createProductTypeFromDto(productTypeDto);
+        productTypeRepository.save(productType);
     }
 
     private ProductType createProductTypeFromDto(ProductTypeDto productTypeDto) {

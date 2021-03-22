@@ -27,6 +27,7 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
+    @Transactional
     public void addNewEmployee(EmployeeDto employeeDto) {
         Shop shop = shopRepository.findById(employeeDto.getShopId())
                 .orElseThrow(() -> new EntityNotFoundException());

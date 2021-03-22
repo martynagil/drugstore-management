@@ -23,9 +23,9 @@ public class DeliveryDto {
 
     @JsonCreator
     public DeliveryDto(
-            @JsonProperty LocalDateTime time,
-            @JsonProperty Long shopId,
-            @JsonProperty List<DeliveryEntry> deliveryEntries) {
+            @JsonProperty("time") LocalDateTime time,
+            @JsonProperty("shopId") Long shopId,
+            @JsonProperty("deliveryEntries") List<DeliveryEntry> deliveryEntries) {
         this.id = id;
         this.time = time;
         this.shopId = shopId;

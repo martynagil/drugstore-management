@@ -23,10 +23,9 @@ public class TransactionDto {
 
     @JsonCreator
     public TransactionDto(
-            @JsonProperty LocalDateTime submissionTime,
-            @JsonProperty Long shopId,
-            @JsonProperty List<TransactionEntry> transactionEntries
-            ) {
+            @JsonProperty("submissionTime") LocalDateTime submissionTime,
+            @JsonProperty("shopId") Long shopId,
+            @JsonProperty("transactionEntries") List<TransactionEntry> transactionEntries) {
         this.submissionTime = submissionTime;
         this.shopId = shopId;
         this.transactionEntries = transactionEntries;

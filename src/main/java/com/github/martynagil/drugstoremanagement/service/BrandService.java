@@ -28,6 +28,7 @@ public class BrandService {
         }
 
         Brand brand = createBrandFromDto(brandDto);
+        brandRepository.save(brand);
     }
 
     private Brand createBrandFromDto(BrandDto brandDto) {

@@ -23,6 +23,7 @@ public class ProducerService {
         }
 
         Producer producer = createProducerFromDto(producerDto);
+        producerRepository.save(producer);
     }
 
     private Producer createProducerFromDto(ProducerDto producerDto) {

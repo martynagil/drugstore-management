@@ -20,8 +20,7 @@ public class WorkTimeDto {
     @JsonCreator
     public WorkTimeDto(
             @JsonProperty("startDate") LocalDateTime startDate,
-            @JsonProperty("endDate") LocalDateTime endDate
-    ) {
+            @JsonProperty("endDate") LocalDateTime endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }
