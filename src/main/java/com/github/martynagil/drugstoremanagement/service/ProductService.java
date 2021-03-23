@@ -14,39 +14,39 @@ import javax.persistence.EntityNotFoundException;
 @Service
 public class ProductService {
 
-    private ProductRepository productRepository;
-    private BrandRepository brandRepository;
-    private ProductTypeRepository productTypeRepository;
+	private ProductRepository productRepository;
+	private BrandRepository brandRepository;
+	private ProductTypeRepository productTypeRepository;
 
-    public ProductService(ProductRepository productRepository, BrandRepository brandRepository, ProductTypeRepository productTypeRepository) {
-        this.productRepository = productRepository;
-        this.brandRepository = brandRepository;
-        this.productTypeRepository = productTypeRepository;
-    }
+	public ProductService(ProductRepository productRepository, BrandRepository brandRepository, ProductTypeRepository productTypeRepository) {
+		this.productRepository = productRepository;
+		this.brandRepository = brandRepository;
+		this.productTypeRepository = productTypeRepository;
+	}
 
-    @Transactional
-    public void addProduct(ProductDto productDto) {
-        if (productExists(productDto)) {
-            throw new ProductTypeAlreadyExistsException();
-        }
+	@Transactional
+	public void addProduct(ProductDto productDto) {
+		if (productExists(productDto)) {
+			throw new ProductTypeAlreadyExistsException();
+		}
 
-        Product product = createProductFromDto(productDto);
-        productRepository.save(product);
-    }
+		Product product = createProductFromDto(productDto);
+		productRepository.save(product);
+	}
 
-    private Product createProductFromDto(ProductDto productDto) {
-        return new Product(
-                productDto.getName(),
-                productDto.getBarcode(),
-                productDto.getPrice(),
-                brandRepository.findById(productDto.getBrandId())
-                        .orElseThrow(EntityNotFoundException::new),
-                productTypeRepository.findById(productDto.getProductTypeId())
-                        .orElseThrow(EntityNotFoundException::new)
-        );
-    }
+	private Product createProductFromDto(ProductDto productDto) {
+		return new Product(
+				productDto.getName(),
+				productDto.getBarcode(),
+				productDto.getPrice(),
+				brandRepository.findById(productDto.getBrandId())
+						.orElseThrow(EntityNotFoundException::new),
+				productTypeRepository.findById(productDto.getProductTypeId())
+						.orElseThrow(EntityNotFoundException::new)
+		);
+	}
 
-    private boolean productExists(ProductDto productDto) {
-        return productRepository.existsByBarcode(productDto.getBarcode());
-    }
+	private boolean productExists(ProductDto productDto) {
+		return productRepository.existsByBarcode(productDto.getBarcode());
+	}
 }

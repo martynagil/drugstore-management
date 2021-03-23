@@ -8,39 +8,39 @@ import java.time.YearMonth;
 @Table(name = "salaries")
 public class Salary {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private Integer year;
+	@Column(nullable = false)
+	private Integer year;
 
-    @Column(nullable = false)
-    private Integer month;
+	@Column(nullable = false)
+	private Integer month;
 
-    @Column(nullable = false)
-    private BigDecimal amount;
+	@Column(nullable = false)
+	private BigDecimal amount;
 
-    @Deprecated
-    protected Salary() {
-    }
+	@Deprecated
+	protected Salary() {
+	}
 
-    public Salary(YearMonth month, BigDecimal amount) {
-        this.year = month.getYear();
-        this.month = month.getMonthValue();
-        this.amount = amount;
-    }
+	public Salary(YearMonth month, BigDecimal amount) {
+		this.year = month.getYear();
+		this.month = month.getMonthValue();
+		this.amount = amount;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public YearMonth getMonth() {
-        return YearMonth.of(year, month);
-    }
+	public YearMonth getMonth() {
+		return YearMonth.of(year, month);
+	}
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
+	public BigDecimal getAmount() {
+		return amount;
+	}
 
 }

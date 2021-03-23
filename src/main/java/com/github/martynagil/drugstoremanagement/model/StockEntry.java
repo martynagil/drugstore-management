@@ -9,26 +9,26 @@ import javax.persistence.Table;
 @Table(name = "stock_entry")
 public class StockEntry {
 
-    @EmbeddedId
-    private StockEntryId stockEntryId;
+	@EmbeddedId
+	private StockEntryId stockEntryId;
 
-    @Column(nullable = false)
-    private int count;
+	@Column(nullable = false)
+	private int count;
 
-    @Deprecated
-    protected StockEntry() {
-    }
+	@Deprecated
+	protected StockEntry() {
+	}
 
-    public StockEntry(StockEntryId stockEntryId, int count) {
-        this.stockEntryId = stockEntryId;
-        this.count = count;
-    }
+	public StockEntry(StockEntryId stockEntryId, int count) {
+		this.stockEntryId = stockEntryId;
+		this.count = count;
+	}
 
-    public StockEntryId getStockEntryId() {
-        return stockEntryId;
-    }
+	public StockEntryId getStockEntryId() {
+		return stockEntryId;
+	}
 
-    public int getCount() {
-        return count;
-    }
+	public int getCount() {
+		return count;
+	}
 }

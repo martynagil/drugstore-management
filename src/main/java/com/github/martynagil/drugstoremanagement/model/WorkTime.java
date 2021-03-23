@@ -7,39 +7,39 @@ import java.time.LocalDateTime;
 @Table(name = "work_times")
 public class WorkTime {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private LocalDateTime startDate;
+	@Column(nullable = false)
+	private LocalDateTime startDate;
 
-    @Column
-    private LocalDateTime endDate;
+	@Column
+	private LocalDateTime endDate;
 
-    @Deprecated
-    protected WorkTime() {
-    }
+	@Deprecated
+	protected WorkTime() {
+	}
 
-    public WorkTime(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
+	public WorkTime(LocalDateTime startDate) {
+		this.startDate = startDate;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
+	public LocalDateTime getStartDate() {
+		return startDate;
+	}
 
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
+	public LocalDateTime getEndDate() {
+		return endDate;
+	}
 
-    public void endWork(LocalDateTime endDate) {
-        this.endDate = endDate;
-    }
+	public void endWork(LocalDateTime endDate) {
+		this.endDate = endDate;
+	}
 
 
 }

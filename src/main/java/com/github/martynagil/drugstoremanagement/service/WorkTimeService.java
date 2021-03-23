@@ -15,36 +15,36 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class WorkTimeService {
 
-    private EmployeeRepository employeeRepository;
+	private EmployeeRepository employeeRepository;
 
-    public WorkTimeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+	public WorkTimeService(EmployeeRepository employeeRepository) {
+		this.employeeRepository = employeeRepository;
+	}
 
-    @Transactional
-    public void startWork(Long employeeId) {
-        Employee employee = findEmployee(employeeId);
-        employee.startWork();
-    }
+	@Transactional
+	public void startWork(Long employeeId) {
+		Employee employee = findEmployee(employeeId);
+		employee.startWork();
+	}
 
-    @Transactional
-    public void endWork(Long employeeId) {
-        Employee employee = findEmployee(employeeId);
-        employee.endWork();
-    }
+	@Transactional
+	public void endWork(Long employeeId) {
+		Employee employee = findEmployee(employeeId);
+		employee.endWork();
+	}
 
-    public List<WorkTime> getMonthlyWorkTimes(Long employeeId) {
-        return findEmployee(employeeId)
-                .getWorkTimes()
-                .stream()
-                .filter(workTime -> {
-                    return LocalDateTime.now().getMonth().equals(workTime.getEndDate().getMonth());
-                })
-                .collect(toList());
-    }
+	public List<WorkTime> getMonthlyWorkTimes(Long employeeId) {
+		return findEmployee(employeeId)
+				.getWorkTimes()
+				.stream()
+				.filter(workTime -> {
+					return LocalDateTime.now().getMonth().equals(workTime.getEndDate().getMonth());
+				})
+				.collect(toList());
+	}
 
-    private Employee findEmployee(Long employeeId) {
-        return employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new EntityNotFoundException());
-    }
+	private Employee findEmployee(Long employeeId) {
+		return employeeRepository.findById(employeeId)
+				.orElseThrow(() -> new EntityNotFoundException());
+	}
 }

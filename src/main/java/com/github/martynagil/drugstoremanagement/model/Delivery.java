@@ -9,42 +9,42 @@ import java.util.List;
 @Table(name = "deliveries")
 public class Delivery {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private LocalDateTime time;
+	@Column(nullable = false)
+	private LocalDateTime time;
 
-    @ManyToOne(optional = false)
-    private Shop shop;
+	@ManyToOne(optional = false)
+	private Shop shop;
 
-    @OneToMany(mappedBy = "deliveryEntryId.delivery")
-    private List<DeliveryEntry> deliveryEntries = new ArrayList<>();
+	@OneToMany(mappedBy = "deliveryEntryId.delivery")
+	private List<DeliveryEntry> deliveryEntries = new ArrayList<>();
 
-    @Deprecated
-    protected Delivery() {
-    }
+	@Deprecated
+	protected Delivery() {
+	}
 
-    public Delivery(LocalDateTime time, Shop shop, List<DeliveryEntry> deliveryEntries) {
-        this.time = time;
-        this.shop = shop;
-        this.deliveryEntries = deliveryEntries;
-    }
+	public Delivery(LocalDateTime time, Shop shop, List<DeliveryEntry> deliveryEntries) {
+		this.time = time;
+		this.shop = shop;
+		this.deliveryEntries = deliveryEntries;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public LocalDateTime getTime() {
-        return time;
-    }
+	public LocalDateTime getTime() {
+		return time;
+	}
 
-    public Shop getShop() {
-        return shop;
-    }
+	public Shop getShop() {
+		return shop;
+	}
 
-    public List<DeliveryEntry> getDeliveryEntries() {
-        return deliveryEntries;
-    }
+	public List<DeliveryEntry> getDeliveryEntries() {
+		return deliveryEntries;
+	}
 }

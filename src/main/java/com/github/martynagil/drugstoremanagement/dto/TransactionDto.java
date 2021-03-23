@@ -9,41 +9,41 @@ import java.util.List;
 
 public class TransactionDto {
 
-    private Long id;
-    private LocalDateTime submissionTime;
-    private Long shopId;
-    private List<TransactionEntry> transactionEntries;
+	private Long id;
+	private LocalDateTime submissionTime;
+	private Long shopId;
+	private List<TransactionEntry> transactionEntries;
 
-    public TransactionDto(Long id, LocalDateTime submissionTime, Long shopId, List<TransactionEntry> transactionEntries) {
-        this.id = id;
-        this.submissionTime = submissionTime;
-        this.shopId = shopId;
-        this.transactionEntries = transactionEntries;
-    }
+	public TransactionDto(Long id, LocalDateTime submissionTime, Long shopId, List<TransactionEntry> transactionEntries) {
+		this.id = id;
+		this.submissionTime = submissionTime;
+		this.shopId = shopId;
+		this.transactionEntries = transactionEntries;
+	}
 
-    @JsonCreator
-    public TransactionDto(
-            @JsonProperty("submissionTime") LocalDateTime submissionTime,
-            @JsonProperty("shopId") Long shopId,
-            @JsonProperty("transactionEntries") List<TransactionEntry> transactionEntries) {
-        this.submissionTime = submissionTime;
-        this.shopId = shopId;
-        this.transactionEntries = transactionEntries;
-    }
+	@JsonCreator
+	public TransactionDto(
+			@JsonProperty("submissionTime") LocalDateTime submissionTime,
+			@JsonProperty("shopId") Long shopId,
+			@JsonProperty("transactionEntries") List<TransactionEntry> transactionEntries) {
+		this.submissionTime = submissionTime;
+		this.shopId = shopId;
+		this.transactionEntries = transactionEntries;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public LocalDateTime getSubmissionTime() {
-        return submissionTime;
-    }
+	public LocalDateTime getSubmissionTime() {
+		return submissionTime;
+	}
 
-    public Long getShopId() {
-        return shopId;
-    }
+	public Long getShopId() {
+		return shopId;
+	}
 
-    public List<TransactionEntry> getTransactionEntries() {
-        return transactionEntries;
-    }
+	public List<TransactionEntry> getTransactionEntries() {
+		return transactionEntries;
+	}
 }

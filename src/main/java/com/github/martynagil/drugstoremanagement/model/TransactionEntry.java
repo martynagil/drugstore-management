@@ -9,28 +9,28 @@ import javax.persistence.Table;
 @Table(name = "transaction_entries")
 public class TransactionEntry {
 
-    @EmbeddedId
-    private TransactionEntryId transactionEntryId;
+	@EmbeddedId
+	private TransactionEntryId transactionEntryId;
 
-    @Column(nullable = false)
-    private int count;
+	@Column(nullable = false)
+	private int count;
 
-    @Deprecated
-    protected TransactionEntry() {
-    }
+	@Deprecated
+	protected TransactionEntry() {
+	}
 
-    public TransactionEntry(TransactionEntryId transactionEntryId, int count) {
-        this.transactionEntryId = transactionEntryId;
-        this.count = count;
-    }
+	public TransactionEntry(TransactionEntryId transactionEntryId, int count) {
+		this.transactionEntryId = transactionEntryId;
+		this.count = count;
+	}
 
-    public TransactionEntryId getTransactionEntryId() {
-        return transactionEntryId;
-    }
+	public TransactionEntryId getTransactionEntryId() {
+		return transactionEntryId;
+	}
 
-    public int getCount() {
-        return count;
-    }
+	public int getCount() {
+		return count;
+	}
 
 
 }

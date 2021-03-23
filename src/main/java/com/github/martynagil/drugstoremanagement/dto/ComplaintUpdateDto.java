@@ -6,14 +6,14 @@ import com.github.martynagil.drugstoremanagement.model.ComplaintStatus;
 
 public class ComplaintUpdateDto {
 
-    private ComplaintStatus complaintStatus;
+	private ComplaintStatus complaintStatus;
 
-    @JsonCreator
-    public ComplaintUpdateDto(@JsonProperty("complaintStatus") ComplaintStatus complaintStatus) {
-        this.complaintStatus = complaintStatus;
-    }
+	@JsonCreator
+	public ComplaintUpdateDto(@JsonProperty("complaintStatus") ComplaintStatus complaintStatus) {
+		this.complaintStatus = complaintStatus;
+	}
 
-    public ComplaintStatus getComplaintStatus() {
-        return complaintStatus;
-    }
+	public ComplaintStatus getComplaintStatus() {
+		return complaintStatus;
+	}
 }

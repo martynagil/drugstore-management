@@ -12,26 +12,26 @@ import javax.persistence.EntityNotFoundException;
 @Service
 public class TransactionService {
 
-    private ShopRepository shopRepository;
-    private TransactionRepository transactionRepository;
+	private ShopRepository shopRepository;
+	private TransactionRepository transactionRepository;
 
-    public TransactionService(ShopRepository shopRepository) {
-        this.shopRepository = shopRepository;
-    }
+	public TransactionService(ShopRepository shopRepository) {
+		this.shopRepository = shopRepository;
+	}
 
-    @Transactional
-    public void addTransaction(TransactionDto transactionDto) {
-        Transaction transaction = createTransactionFromDto(transactionDto);
-        transactionRepository.save(transaction);
-    }
+	@Transactional
+	public void addTransaction(TransactionDto transactionDto) {
+		Transaction transaction = createTransactionFromDto(transactionDto);
+		transactionRepository.save(transaction);
+	}
 
-    private Transaction createTransactionFromDto(TransactionDto transactionDto) {
-        return new Transaction(
-                transactionDto.getSubmissionTime(),
-                shopRepository.findById(transactionDto.getShopId())
-                    .orElseThrow(EntityNotFoundException::new),
-                transactionDto.getTransactionEntries()
-        );
-    }
+	private Transaction createTransactionFromDto(TransactionDto transactionDto) {
+		return new Transaction(
+				transactionDto.getSubmissionTime(),
+				shopRepository.findById(transactionDto.getShopId())
+						.orElseThrow(EntityNotFoundException::new),
+				transactionDto.getTransactionEntries()
+		);
+	}
 
 }

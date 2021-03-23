@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/complaints")
 public class ComplaintController {
 
-    private ComplaintService complaintService;
+	private ComplaintService complaintService;
 
-    public ComplaintController(ComplaintService complaintService) {
-        this.complaintService = complaintService;
-    }
+	public ComplaintController(ComplaintService complaintService) {
+		this.complaintService = complaintService;
+	}
 
-    @PostMapping
-    public void addComplaint(@RequestBody ComplaintDto complaintDto) {
-        complaintService.addComplaint(complaintDto);
-    }
+	@PostMapping
+	public void addComplaint(@RequestBody ComplaintDto complaintDto) {
+		complaintService.addComplaint(complaintDto);
+	}
 
-    @PutMapping("/{complaintId}")
-    public void updateStatusOfComplaint(@RequestBody ComplaintUpdateDto complaintUpdateDto, @PathVariable Long complaintId) {
-        complaintService.updateComplaint(complaintUpdateDto, complaintId);
-    }
+	@PutMapping("/{complaintId}")
+	public void updateStatusOfComplaint(@RequestBody ComplaintUpdateDto complaintUpdateDto, @PathVariable Long complaintId) {
+		complaintService.updateComplaint(complaintUpdateDto, complaintId);
+	}
 
 }
