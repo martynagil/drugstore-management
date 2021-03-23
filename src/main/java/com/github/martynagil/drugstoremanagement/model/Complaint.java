@@ -1,5 +1,7 @@
 package com.github.martynagil.drugstoremanagement.model;
 
+import com.github.martynagil.drugstoremanagement.exceptions.StatusCanNotBeUpdateException;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -40,10 +42,11 @@ public class Complaint {
 	}
 
 	public void updateStatus(ComplaintStatus complaintStatus) {
-		if (this.complaintStatus == ComplaintStatus.SUBMITTED
-				&& complaintStatus != ComplaintStatus.SUBMITTED) {
-			this.complaintStatus = complaintStatus;
+		if (this.complaintStatus != ComplaintStatus.SUBMITTED
+				&& complaintStatus == ComplaintStatus.SUBMITTED) {
+			throw new StatusCanNotBeUpdateException();
 		}
+		this.complaintStatus = complaintStatus;
 	}
 
 	public Long getId() {
