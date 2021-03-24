@@ -1,6 +1,6 @@
 package com.github.martynagil.drugstoremanagement.model;
 
-import com.github.martynagil.drugstoremanagement.exceptions.StatusCanNotBeUpdateException;
+import com.github.martynagil.drugstoremanagement.exceptions.IllegalStatusUpdateException;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -44,7 +44,15 @@ public class Complaint {
 	public void updateStatus(ComplaintStatus complaintStatus) {
 		if (this.complaintStatus != ComplaintStatus.SUBMITTED
 				&& complaintStatus == ComplaintStatus.SUBMITTED) {
-			throw new StatusCanNotBeUpdateException();
+			throw new IllegalStatusUpdateException("Complaint status cannot be changed to submitted after completion");
+		}
+		if (this.complaintStatus == ComplaintStatus.ACCEPTED
+				&& complaintStatus == ComplaintStatus.REJECTED) {
+			throw new IllegalStatusUpdateException("Accepted status cannot be changed to rejected");
+		}
+		if (this.complaintStatus == ComplaintStatus.REJECTED
+				&& complaintStatus == ComplaintStatus.ACCEPTED) {
+			throw new IllegalStatusUpdateException("Rejected status cannot be changed to accepted");
 		}
 		this.complaintStatus = complaintStatus;
 	}
@@ -71,5 +79,9 @@ public class Complaint {
 
 	public Transaction getTransaction() {
 		return transaction;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

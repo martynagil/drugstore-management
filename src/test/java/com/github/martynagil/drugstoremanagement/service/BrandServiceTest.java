@@ -7,6 +7,8 @@ import com.github.martynagil.drugstoremanagement.repositories.BrandRepository;
 import com.github.martynagil.drugstoremanagement.repositories.ProducerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.Optional;
@@ -21,16 +23,12 @@ class BrandServiceTest {
 			1L, "name", "mail", "1111111", 2L
 	);
 
+	@Mock
 	private BrandRepository brandRepository;
+	@Mock
 	private ProducerRepository producerRepository;
-	private BrandService brandService;
-
-	@BeforeEach
-	void setUp() {
-		brandRepository = mock(BrandRepository.class);
-		producerRepository = mock(ProducerRepository.class);
-		brandService = new BrandService(brandRepository, producerRepository);
-	}
+	@InjectMocks
+	BrandService brandService = new BrandService(brandRepository, producerRepository);
 
 	@Test
 	void shouldNotAddBrandWhenItExists() {
@@ -49,14 +47,14 @@ class BrandServiceTest {
 	void shouldAddBrandWhenItNotExist() {
 		when(brandRepository.existsByNameAndProducerId(any(), any()))
 				.thenReturn(false);
-		Producer producer = new Producer(
-				"producer", "meail", "2345678"
-		);
+		Producer producer = new Producer("producer", "meail", "2345678");
 		when(producerRepository.findById(brandDto.getProducerId()))
 				.thenReturn(Optional.of(producer));
 
 		brandService.addBrand(brandDto);
 
 		verify(brandRepository).save(any());
+
+		// TODO: 24.03.2021 argument captor
 	}
 }
