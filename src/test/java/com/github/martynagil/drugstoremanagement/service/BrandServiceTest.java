@@ -2,21 +2,26 @@ package com.github.martynagil.drugstoremanagement.service;
 
 import com.github.martynagil.drugstoremanagement.dto.BrandDto;
 import com.github.martynagil.drugstoremanagement.exceptions.BrandAlreadyExistsException;
+import com.github.martynagil.drugstoremanagement.model.Brand;
 import com.github.martynagil.drugstoremanagement.model.Producer;
 import com.github.martynagil.drugstoremanagement.repositories.BrandRepository;
 import com.github.martynagil.drugstoremanagement.repositories.ProducerRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class BrandServiceTest {
 
 	private final BrandDto brandDto = new BrandDto(
@@ -29,6 +34,8 @@ class BrandServiceTest {
 	private ProducerRepository producerRepository;
 	@InjectMocks
 	BrandService brandService = new BrandService(brandRepository, producerRepository);
+	@Captor
+	ArgumentCaptor<Brand> brandCaptor;
 
 	@Test
 	void shouldNotAddBrandWhenItExists() {
@@ -52,9 +59,11 @@ class BrandServiceTest {
 				.thenReturn(Optional.of(producer));
 
 		brandService.addBrand(brandDto);
+		verify(brandRepository).save(brandCaptor.capture());
+		Brand brand = brandCaptor.getValue();
 
-		verify(brandRepository).save(any());
-
-		// TODO: 24.03.2021 argument captor
+		assertThat(brand.getName()).isEqualTo(brandDto.getName());
+		assertThat(brand.getEmail()).isEqualTo(brandDto.getEmail());
+		assertThat(brand.getTelephone()).isEqualTo(brandDto.getTelephone());
 	}
 }

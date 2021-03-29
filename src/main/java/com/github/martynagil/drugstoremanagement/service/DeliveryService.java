@@ -15,8 +15,9 @@ public class DeliveryService {
 	private ShopRepository shopRepository;
 	private DeliveryRepository deliveryRepository;
 
-	public DeliveryService(ShopRepository shopRepository) {
+	public DeliveryService(ShopRepository shopRepository, DeliveryRepository deliveryRepository) {
 		this.shopRepository = shopRepository;
+		this.deliveryRepository = deliveryRepository;
 	}
 
 	@Transactional

@@ -41,5 +41,4 @@ public class EmployeeService {
 				.orElseThrow(() -> new EntityNotFoundException());
 		employee.dismiss(employeeDismissalDto.getDismissalDate());
 	}
-
 }
