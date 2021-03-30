@@ -46,7 +46,6 @@ class BrandServiceTest {
 				BrandAlreadyExistsException.class,
 				() -> brandService.addBrand(brandDto)
 		);
-
 		verify(brandRepository, never()).save(any());
 	}
 

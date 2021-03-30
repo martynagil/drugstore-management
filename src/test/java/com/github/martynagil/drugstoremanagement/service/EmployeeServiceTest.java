@@ -65,7 +65,7 @@ class EmployeeServiceTest {
 		when(employeeRepository.findById(any()))
 				.thenReturn(Optional.of(employee(employeeDto)));
 
-		// TODO: 30.03.2021  
+		// TODO: 30.03.2021 jak to zrobic bez id
 	}
 
 	private Address address() {
@@ -87,7 +87,7 @@ class EmployeeServiceTest {
 		return new Employee("name", 
 				"surname", 
 				"telephoneNumber", 
-				LocalDate.now(), 
+				LocalDate.parse("2020-08-07"),
 				"email", 
 				shop());
 	}
