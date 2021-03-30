@@ -1,7 +1,7 @@
 package com.github.martynagil.drugstoremanagement.service;
 
 import com.github.martynagil.drugstoremanagement.dto.ProductDto;
-import com.github.martynagil.drugstoremanagement.exceptions.ProductTypeAlreadyExistsException;
+import com.github.martynagil.drugstoremanagement.exceptions.ProductAlreadyExistsException;
 import com.github.martynagil.drugstoremanagement.model.Product;
 import com.github.martynagil.drugstoremanagement.repositories.BrandRepository;
 import com.github.martynagil.drugstoremanagement.repositories.ProductRepository;
@@ -27,7 +27,7 @@ public class ProductService {
 	@Transactional
 	public void addProduct(ProductDto productDto) {
 		if (productExists(productDto)) {
-			throw new ProductTypeAlreadyExistsException();
+			throw new ProductAlreadyExistsException();
 		}
 
 		Product product = createProductFromDto(productDto);
