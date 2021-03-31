@@ -27,29 +27,26 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceTest {
 
-	private final EmployeeDto employeeDto = new EmployeeDto(
-			"name",
-			"surname",
-			"number",
-			LocalDate.parse("2018-01-07"),
-			"mail",
-			1L
-	);
 	@Mock
-	EmployeeRepository employeeRepository;
+	private EmployeeRepository employeeRepository;
+
 	@Mock
-	ShopRepository shopRepository;
+	private ShopRepository shopRepository;
+
 	@InjectMocks
-	EmployeeService employeeService = new EmployeeService(employeeRepository, shopRepository);
+	private EmployeeService employeeService = new EmployeeService(employeeRepository, shopRepository);
+
 	@Captor
-	ArgumentCaptor<Employee> employeeCaptor;
+	private ArgumentCaptor<Employee> employeeCaptor;
 
 	@Test
 	void shouldAddNewEmployee() {
+		EmployeeDto employeeDto = employeeDto();
 		when(shopRepository.findById(any()))
 				.thenReturn(Optional.of(shop()));
 
 		employeeService.addNewEmployee(employeeDto);
+
 		verify(employeeRepository).save(employeeCaptor.capture());
 		Employee employee = employeeCaptor.getValue();
 
@@ -62,24 +59,17 @@ class EmployeeServiceTest {
 
 	@Test
 	void dismissEmployee() {
+		EmployeeDto employeeDto = employeeDto();
 		when(employeeRepository.findById(any()))
 				.thenReturn(Optional.of(employee(employeeDto)));
 
 		// TODO: 30.03.2021 jak to zrobic bez id
 	}
 
-	private Address address() {
-		return new Address(
-				"Wrocław",
-				"50-306",
-				"Krzywoustego 110"
-		);
-	}
-
 	private Shop shop() {
 		return new Shop(
 				"shop name",
-				address()
+				null
 		);
 	}
 
@@ -90,5 +80,16 @@ class EmployeeServiceTest {
 				LocalDate.parse("2020-08-07"),
 				"email", 
 				shop());
+	}
+
+	private EmployeeDto employeeDto() {
+		return new EmployeeDto(
+				"name",
+				"surname",
+				"number",
+				LocalDate.parse("2018-01-07"),
+				"mail",
+				1L
+		);
 	}
 }

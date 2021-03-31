@@ -31,14 +31,18 @@ class ProductServiceTest {
 
 	@Mock
 	private ProductRepository productRepository;
+
 	@Mock
 	private BrandRepository brandRepository;
+
 	@Mock
 	private ProductTypeRepository productTypeRepository;
+
 	@InjectMocks
 	private ProductService productService = new ProductService(productRepository, brandRepository, productTypeRepository);
+
 	@Captor
-	ArgumentCaptor<Product> productCaptor;
+	private ArgumentCaptor<Product> productCaptor;
 
 	@Test
 	void shouldAddProductWhenItDoesNotExist() {
@@ -70,20 +74,12 @@ class ProductServiceTest {
 		verify(productRepository, never()).save(any());
 	}
 
-	private Producer producer() {
-		return new Producer(
-				"producer",
-				"producer@sdcv.com",
-				"09876543"
-		);
-	}
-
 	private Brand brand() {
 		return new Brand(
 				"brand",
 				"ertghjmnbv@sdc.com",
 				"7654321",
-				producer()
+				null
 		);
 	}
 

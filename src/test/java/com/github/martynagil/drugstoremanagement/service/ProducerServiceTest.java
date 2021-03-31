@@ -20,24 +20,23 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ProducerServiceTest {
 
-	private final ProducerDto producerDto = new ProducerDto(
-			"name",
-			"email",
-			"telephone"
-	);
 	@Mock
 	private ProducerRepository producerRepository;
+
 	@InjectMocks
 	private ProducerService producerService = new ProducerService(producerRepository);
+
 	@Captor
-	ArgumentCaptor<Producer> producerCaptor;
+	private ArgumentCaptor<Producer> producerCaptor;
 
 	@Test
 	void shouldAddProducerWhenItNotExists() {
+		ProducerDto producerDto = producerDto();
 		when(producerRepository.existsByName(any()))
 				.thenReturn(false);
 
 		producerService.addProducer(producerDto);
+
 		verify(producerRepository).save(producerCaptor.capture());
 		Producer producer = producerCaptor.getValue();
 
@@ -48,6 +47,7 @@ class ProducerServiceTest {
 
 	@Test
 	void shouldNotAddProducerWhenItExists() {
+		ProducerDto producerDto = producerDto();
 		when(producerRepository.existsByName(any()))
 				.thenReturn(true);
 
@@ -58,5 +58,12 @@ class ProducerServiceTest {
 		verify(producerRepository, never()).save(any());
 	}
 
+	private ProducerDto producerDto() {
+		return new ProducerDto(
+				"name",
+				"email",
+				"telephone"
+		);
+	}
 
 }

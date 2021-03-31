@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import static com.github.martynagil.drugstoremanagement.model.ComplaintStatus.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -69,63 +70,62 @@ class ComplaintServiceTest {
 
 		assertThrows(
 				EntityNotFoundException.class,
-				() -> complaintService.updateComplaint(complaintUpdateToAcceptedDto(), 1L)
+				() -> complaintService.updateComplaint(updateStatusTo(ACCEPTED), 1L)
 		);
 		verify(complaintRepository, never()).save(any());
 	}
 
 	@Test
 	void shouldUpdateWhenSubmittedComplaintExists() {
-		complaintExistsForUpdating(complaint());
-		Complaint complaint = complaintRepository.findById(1L)
-				.orElseThrow(EntityNotFoundException::new);
+		Complaint complaint = complaint();
+		complaintExistsForUpdating(complaint);
 
-		complaintService.updateComplaint(complaintUpdateToAcceptedDto(), 1L);
+		complaintService.updateComplaint(updateStatusTo(ACCEPTED), 1L);
 
-		assertThat(complaint.getComplaintStatus()).isEqualTo(complaintUpdateToAcceptedDto().getComplaintStatus());
+		assertThat(complaint.getComplaintStatus()).isEqualTo(ACCEPTED);
 	}
 
 	@Test
 	void shouldNotUpdateToAcceptedWhenStatusIsRejected() {
 		complaintExistsForUpdating(complaint());
-		complaintService.updateComplaint(complaintUpdateToRejectedDto(), 1L);
+		complaintService.updateComplaint(updateStatusTo(REJECTED), 1L);
 
 		assertThrows(
 				IllegalStatusUpdateException.class,
-				() -> complaintService.updateComplaint(complaintUpdateToAcceptedDto(), 1L)
+				() -> complaintService.updateComplaint(updateStatusTo(ACCEPTED), 1L)
 		);
 	}
 
 	@Test
 	void shouldNotUpdateToRejectedWhenStatusIsAccepted() {
 		complaintExistsForUpdating(complaint());
-		complaintService.updateComplaint(complaintUpdateToAcceptedDto(), 1L);
+		complaintService.updateComplaint(updateStatusTo(ACCEPTED), 1L);
 
 		assertThrows(
 				IllegalStatusUpdateException.class,
-				() -> complaintService.updateComplaint(complaintUpdateToRejectedDto(), 1L)
+				() -> complaintService.updateComplaint(updateStatusTo(REJECTED), 1L)
 		);
 	}
 
 	@Test
 	void shouldNotUpdateToSubmittedWhenStatusIsAccepted() {
 		complaintExistsForUpdating(complaint());
-		complaintService.updateComplaint(complaintUpdateToAcceptedDto(), 1L);
+		complaintService.updateComplaint(updateStatusTo(ACCEPTED), 1L);
 
 		assertThrows(
 				IllegalStatusUpdateException.class,
-				() -> complaintService.updateComplaint(complaintUpdateToSubmittedDto(), 1L)
+				() -> complaintService.updateComplaint(updateStatusTo(SUBMITTED), 1L)
 		);
 	}
 
 	@Test
 	void shouldNotUpdateToSubmittedWhenStatusIsRejected() {
 		complaintExistsForUpdating(complaint());
-		complaintService.updateComplaint(complaintUpdateToRejectedDto(), 1L);
+		complaintService.updateComplaint(updateStatusTo(REJECTED), 1L);
 
 		assertThrows(
 				IllegalStatusUpdateException.class,
-				() -> complaintService.updateComplaint(complaintUpdateToSubmittedDto(), 1L)
+				() -> complaintService.updateComplaint(updateStatusTo(SUBMITTED), 1L)
 		);
 	}
 
@@ -165,77 +165,27 @@ class ComplaintServiceTest {
 		);
 	}
 
-	private Producer producer() {
-		return new Producer(
-				"producer",
-				"producer@sdcv.com",
-				"09876543"
-		);
-	}
-
-	private Brand brand() {
-		return new Brand(
-				"brand",
-				"ertghjmnbv@sdc.com",
-				"7654321",
-				producer()
-		);
-	}
-
-	private ProductType productType() {
-		return new ProductType(
-				"cream"
-		);
-	}
-
 	private Product product() {
 		return new Product(
 				"name",
 				"234567887",
 				BigDecimal.valueOf(25.5),
-				brand(),
-				productType()
-		);
-	}
-
-	private Address address() {
-		return new Address(
-				"Wrocław",
-				"50-306",
-				"Krzywoustego 110"
-		);
-	}
-
-	private Shop shop() {
-		return new Shop(
-				"shop name",
-				address()
+				null,
+				null
 		);
 	}
 
 	private Transaction transaction() {
 		return new Transaction(
 				LocalDateTime.now(),
-				shop(),
+				null,
 				new ArrayList<>()
 		);
 	}
 
-	private ComplaintUpdateDto complaintUpdateToAcceptedDto() {
+	private ComplaintUpdateDto updateStatusTo(ComplaintStatus complaintStatus) {
 		return new ComplaintUpdateDto(
-				ComplaintStatus.ACCEPTED
-		);
-	}
-
-	private ComplaintUpdateDto complaintUpdateToRejectedDto() {
-		return new ComplaintUpdateDto(
-				ComplaintStatus.REJECTED
-		);
-	}
-
-	private ComplaintUpdateDto complaintUpdateToSubmittedDto() {
-		return new ComplaintUpdateDto(
-				ComplaintStatus.SUBMITTED
+				complaintStatus
 		);
 	}
 
