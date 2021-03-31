@@ -30,12 +30,15 @@ class BrandServiceTest {
 
 	@Mock
 	private BrandRepository brandRepository;
+
 	@Mock
 	private ProducerRepository producerRepository;
+
 	@InjectMocks
-	BrandService brandService = new BrandService(brandRepository, producerRepository);
+	private BrandService brandService = new BrandService(brandRepository, producerRepository);
+
 	@Captor
-	ArgumentCaptor<Brand> brandCaptor;
+	private ArgumentCaptor<Brand> brandCaptor;
 
 	@Test
 	void shouldNotAddBrandWhenItExists() {
@@ -58,6 +61,7 @@ class BrandServiceTest {
 				.thenReturn(Optional.of(producer));
 
 		brandService.addBrand(brandDto);
+
 		verify(brandRepository).save(brandCaptor.capture());
 		Brand brand = brandCaptor.getValue();
 

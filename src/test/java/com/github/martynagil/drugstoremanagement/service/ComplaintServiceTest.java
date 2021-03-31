@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.OngoingStubbing;
 
 import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
@@ -32,10 +31,13 @@ class ComplaintServiceTest {
 
 	@Mock
 	private ComplaintRepository complaintRepository;
+
 	@Mock
 	private ProductRepository productRepository;
+
 	@Mock
 	private TransactionRepository transactionRepository;
+
 	@InjectMocks
 	private ComplaintService complaintService = new ComplaintService(complaintRepository, productRepository, transactionRepository);
 
@@ -63,7 +65,7 @@ class ComplaintServiceTest {
 
 	@Test
 	void shouldNotUpdateWhenComplaintDoesNotExists() {
-		complaintDoesNotExistsForUpdating();
+		complaintDoesNotExistForUpdating();
 
 		assertThrows(
 				EntityNotFoundException.class,
@@ -127,33 +129,33 @@ class ComplaintServiceTest {
 		);
 	}
 
-	private OngoingStubbing<Optional<Transaction>> findTransactionInRepository() {
-		return when(transactionRepository.findById(any()))
+	private void findTransactionInRepository() {
+		when(transactionRepository.findById(any()))
 				.thenReturn(Optional.of(transaction()));
 	}
 
-	private OngoingStubbing<Optional<Product>> findProductInRepository() {
-		return when(productRepository.findById(any()))
+	private void findProductInRepository() {
+		when(productRepository.findById(any()))
 				.thenReturn(Optional.of(product()));
 	}
 
-	private OngoingStubbing<Boolean> complaintDoesNotExistForAdding() {
-		return when(complaintRepository.existsByTransactionIdAndProductIdAndComplaintStatus(any(), any(), any()))
+	private void complaintDoesNotExistForAdding() {
+		when(complaintRepository.existsByTransactionIdAndProductIdAndComplaintStatus(any(), any(), any()))
 				.thenReturn(false);
 	}
 
-	private OngoingStubbing<Boolean> complaintExistsForAdding() {
-		return when(complaintRepository.existsByTransactionIdAndProductIdAndComplaintStatus(any(), any(), any()))
+	private void complaintExistsForAdding() {
+		when(complaintRepository.existsByTransactionIdAndProductIdAndComplaintStatus(any(), any(), any()))
 				.thenReturn(true);
 	}
 
-	private OngoingStubbing<Optional<Complaint>> complaintDoesNotExistsForUpdating() {
-		return when(complaintRepository.findById(any()))
+	private void complaintDoesNotExistForUpdating() {
+		when(complaintRepository.findById(any()))
 				.thenReturn(Optional.empty());
 	}
 
-	private OngoingStubbing<Optional<Complaint>> complaintExistsForUpdating(Complaint complaint) {
-		return when(complaintRepository.findById(any()))
+	private void complaintExistsForUpdating(Complaint complaint) {
+		when(complaintRepository.findById(any()))
 				.thenReturn(Optional.of(complaint));
 	}
 
