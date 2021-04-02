@@ -15,8 +15,9 @@ public class TransactionService {
 	private ShopRepository shopRepository;
 	private TransactionRepository transactionRepository;
 
-	public TransactionService(ShopRepository shopRepository) {
+	public TransactionService(ShopRepository shopRepository, TransactionRepository transactionRepository) {
 		this.shopRepository = shopRepository;
+		this.transactionRepository = transactionRepository;
 	}
 
 	@Transactional
@@ -33,5 +34,4 @@ public class TransactionService {
 				transactionDto.getTransactionEntries()
 		);
 	}
-
 }

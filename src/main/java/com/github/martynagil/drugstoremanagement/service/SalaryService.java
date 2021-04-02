@@ -37,7 +37,7 @@ public class SalaryService {
 
 		Salary salary = createSalaryFromDto(salaryDto);
 		employee.addSalary(salary);
-		// TODO: 22.03.2021
+		// TODO: 22.03.2021 i testy
 	}
 
 	public List<Salary> getAnnualSalaries(Long employeeId) {

@@ -24,10 +24,6 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class BrandServiceTest {
 
-	private final BrandDto brandDto = new BrandDto(
-			1L, "name", "mail", "1111111", 2L
-	);
-
 	@Mock
 	private BrandRepository brandRepository;
 
@@ -47,13 +43,14 @@ class BrandServiceTest {
 
 		assertThrows(
 				BrandAlreadyExistsException.class,
-				() -> brandService.addBrand(brandDto)
+				() -> brandService.addBrand(brandDto())
 		);
 		verify(brandRepository, never()).save(any());
 	}
 
 	@Test
 	void shouldAddBrandWhenItNotExist() {
+		BrandDto brandDto = brandDto();
 		when(brandRepository.existsByNameAndProducerId(any(), any()))
 				.thenReturn(false);
 		Producer producer = new Producer("producer", "meail", "2345678");
@@ -68,5 +65,11 @@ class BrandServiceTest {
 		assertThat(brand.getName()).isEqualTo(brandDto.getName());
 		assertThat(brand.getEmail()).isEqualTo(brandDto.getEmail());
 		assertThat(brand.getTelephone()).isEqualTo(brandDto.getTelephone());
+	}
+
+	private BrandDto brandDto() {
+		return new BrandDto(
+				1L, "name", "mail", "1111111", 2L
+		);
 	}
 }
