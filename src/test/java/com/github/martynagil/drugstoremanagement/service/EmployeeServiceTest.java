@@ -63,7 +63,7 @@ class EmployeeServiceTest {
 		when(employeeRepository.findById(any()))
 				.thenReturn(Optional.of(employee(employeeDto)));
 
-		// TODO: 30.03.2021 jak to zrobic bez id
+		// TODO: 30.03.2021 jak to zrobic bez id, wymyslic id i nie sprawdzac
 	}
 
 	private Shop shop() {

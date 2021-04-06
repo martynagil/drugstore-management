@@ -178,8 +178,7 @@ class ComplaintServiceTest {
 	private Transaction transaction() {
 		return new Transaction(
 				LocalDateTime.now(),
-				null,
-				new ArrayList<>()
+				null
 		);
 	}
 

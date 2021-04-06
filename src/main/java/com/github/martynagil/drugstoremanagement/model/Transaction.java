@@ -26,10 +26,13 @@ public class Transaction {
 	protected Transaction() {
 	}
 
-	public Transaction(LocalDateTime submissionTime, Shop shop, List<TransactionEntry> transactionEntries) {
+	public Transaction(LocalDateTime submissionTime, Shop shop) {
 		this.submissionTime = submissionTime;
 		this.shop = shop;
-		this.transactionEntries = transactionEntries;
+	}
+
+	public void addEntry(TransactionEntry transactionEntry) {
+		transactionEntries.add(transactionEntry);
 	}
 
 	public Long getId() {
