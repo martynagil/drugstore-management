@@ -18,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,6 +32,9 @@ class SalaryServiceTest {
 	private static final Long EMPLOYEE_ID = 1L;
 	private static final LocalDate EMPLOYMENT_DATE = LocalDate.now();
 	private static final YearMonth SALARY_MONTH = YearMonth.parse("2021-03");
+	private static final BigDecimal SALARY_JANUARY = BigDecimal.valueOf(20000);
+	private static final BigDecimal SALARY_FEBRUARY = BigDecimal.valueOf(30000);
+	private static final BigDecimal SALARY_DECEMBER = BigDecimal.valueOf(10000);
 
 	@Mock
 	private EmployeeRepository employeeRepository;
@@ -76,6 +80,41 @@ class SalaryServiceTest {
 				() -> salaryService.addSalary(EMPLOYEE_ID, salaryDto())
 		);
 		verify(salaryRepository, never()).save(any());
+	}
+
+	@Test
+	void shouldGetAnnualSalaries() {
+		Employee employee = employee();
+		employeeWithSalaries(employee);
+		when(employeeRepository.findById(any()))
+				.thenReturn(Optional.of(employee));
+
+		List<Salary> salaries = salaryService.getAnnualSalaries(1L);
+
+		assertThat(salaries.size()).isEqualTo(2);
+		assertThat(salaries.get(0).getAmount()).isEqualTo(SALARY_JANUARY);
+		assertThat(salaries.get(1).getAmount()).isEqualTo(SALARY_FEBRUARY);
+	}
+
+	private void employeeWithSalaries(Employee employee) {
+		employee.addSalary(
+				new Salary(
+						YearMonth.parse("2021-01"),
+						SALARY_JANUARY
+				)
+		);
+		employee.addSalary(
+				new Salary(
+						YearMonth.parse("2021-02"),
+						SALARY_FEBRUARY
+				)
+		);
+		employee.addSalary(
+				new Salary(
+						YearMonth.parse("2020-12"),
+						SALARY_DECEMBER
+				)
+		);
 	}
 
 	private Employee employee() {

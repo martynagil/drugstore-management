@@ -1,5 +1,6 @@
 package com.github.martynagil.drugstoremanagement.service;
 
+import com.github.martynagil.drugstoremanagement.dto.EmployeeDismissalDto;
 import com.github.martynagil.drugstoremanagement.dto.EmployeeDto;
 import com.github.martynagil.drugstoremanagement.model.Address;
 import com.github.martynagil.drugstoremanagement.model.Employee;
@@ -26,6 +27,8 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceTest {
+
+	private static final LocalDate DISMISSAL_DATE = LocalDate.parse("2021-05-12");
 
 	@Mock
 	private EmployeeRepository employeeRepository;
@@ -59,11 +62,14 @@ class EmployeeServiceTest {
 
 	@Test
 	void dismissEmployee() {
-		EmployeeDto employeeDto = employeeDto();
+		EmployeeDismissalDto employeeDismissalDto = employeeDismissalDto();
+		Employee employee = employee();
 		when(employeeRepository.findById(any()))
-				.thenReturn(Optional.of(employee(employeeDto)));
+				.thenReturn(Optional.of(employee));
 
-		// TODO: 30.03.2021 jak to zrobic bez id, wymyslic id i nie sprawdzac
+		employeeService.dismissEmployee(1L, employeeDismissalDto);
+
+		assertThat(employee.getDateOfDismissal()).isEqualTo(DISMISSAL_DATE);
 	}
 
 	private Shop shop() {
@@ -73,12 +79,12 @@ class EmployeeServiceTest {
 		);
 	}
 
-	private Employee employee(EmployeeDto employeeDto) {
-		return new Employee("name", 
-				"surname", 
-				"telephoneNumber", 
+	private Employee employee() {
+		return new Employee("name",
+				"surname",
+				"telephoneNumber",
 				LocalDate.parse("2020-08-07"),
-				"email", 
+				"email",
 				shop());
 	}
 
@@ -90,6 +96,12 @@ class EmployeeServiceTest {
 				LocalDate.parse("2018-01-07"),
 				"mail",
 				1L
+		);
+	}
+
+	private EmployeeDismissalDto employeeDismissalDto() {
+		return new EmployeeDismissalDto(
+				DISMISSAL_DATE
 		);
 	}
 }
