@@ -24,7 +24,7 @@ class ProductTypeServiceTest {
 	private ProductTypeRepository productTypeRepository;
 
 	@InjectMocks
-	private ProductTypeService productTypeService = new ProductTypeService(productTypeRepository);
+	private ProductTypeService productTypeService;
 
 	@Captor
 	private ArgumentCaptor<ProductType> productTypeCaptor;

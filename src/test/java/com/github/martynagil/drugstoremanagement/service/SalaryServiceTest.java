@@ -43,7 +43,7 @@ class SalaryServiceTest {
 	private SalaryRepository salaryRepository;
 
 	@InjectMocks
-	private SalaryService salaryService = new SalaryService(employeeRepository, salaryRepository);
+	private SalaryService salaryService;
 
 	@Captor
 	private ArgumentCaptor<Salary> salaryCaptor;

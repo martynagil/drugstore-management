@@ -15,22 +15,24 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class WorkTimeService {
 
-	private EmployeeRepository employeeRepository;
+	private final EmployeeRepository employeeRepository;
+	private final Clock clock;
 
-	public WorkTimeService(EmployeeRepository employeeRepository) {
+	public WorkTimeService(EmployeeRepository employeeRepository, Clock clock) {
 		this.employeeRepository = employeeRepository;
+		this.clock = clock;
 	}
 
 	@Transactional
 	public void startWork(Long employeeId) {
 		Employee employee = findEmployee(employeeId);
-		employee.startWork();
+		employee.startWork(clock);
 	}
 
 	@Transactional
 	public void endWork(Long employeeId) {
 		Employee employee = findEmployee(employeeId);
-		employee.endWork();
+		employee.endWork(clock);
 	}
 
 	public List<WorkTime> getMonthlyWorkTimes(Long employeeId) {

@@ -36,7 +36,7 @@ class DeliveryServiceTest {
 	private DeliveryRepository deliveryRepository;
 
 	@InjectMocks
-	private DeliveryService deliveryService = new DeliveryService(shopRepository, deliveryRepository);
+	private DeliveryService deliveryService;
 
 	@Captor
 	private ArgumentCaptor<Delivery> deliveryCaptor;

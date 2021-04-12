@@ -24,7 +24,7 @@ class ProducerServiceTest {
 	private ProducerRepository producerRepository;
 
 	@InjectMocks
-	private ProducerService producerService = new ProducerService(producerRepository);
+	private ProducerService producerService;
 
 	@Captor
 	private ArgumentCaptor<Producer> producerCaptor;

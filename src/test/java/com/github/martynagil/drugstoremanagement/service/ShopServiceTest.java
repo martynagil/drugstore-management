@@ -25,7 +25,7 @@ class ShopServiceTest {
 	private EmployeeRepository employeeRepository;
 
 	@InjectMocks
-	private ShopService shopService = new ShopService(shopRepository, employeeRepository);
+	private ShopService shopService;
 
 	@Captor
 	private ArgumentCaptor<Shop> shopCaptor;

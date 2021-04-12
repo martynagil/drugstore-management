@@ -39,7 +39,7 @@ class ProductServiceTest {
 	private ProductTypeRepository productTypeRepository;
 
 	@InjectMocks
-	private ProductService productService = new ProductService(productRepository, brandRepository, productTypeRepository);
+	private ProductService productService;
 
 	@Captor
 	private ArgumentCaptor<Product> productCaptor;

@@ -1,5 +1,7 @@
 package com.github.martynagil.drugstoremanagement.model;
 
+import com.github.martynagil.drugstoremanagement.service.Clock;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -56,15 +58,15 @@ public class Employee {
 		this.shop = shop;
 	}
 
-	public void startWork() {
-		workTimes.add(new WorkTime(LocalDateTime.now()));
+	public void startWork(Clock clock) {
+		workTimes.add(new WorkTime(clock.now()));
 	}
 
-	public void endWork() {
+	public void endWork(Clock clock) {
 		workTimes.stream()
 				.max(Comparator.comparing(workTime -> workTime.getStartDate()))
 				.orElseThrow(() -> new EntityNotFoundException())
-				.endWork(LocalDateTime.now());
+				.endWork(clock.now());
 	}
 
 	public void addSalary(Salary salary) {

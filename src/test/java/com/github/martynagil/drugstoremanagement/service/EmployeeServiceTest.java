@@ -37,7 +37,7 @@ class EmployeeServiceTest {
 	private ShopRepository shopRepository;
 
 	@InjectMocks
-	private EmployeeService employeeService = new EmployeeService(employeeRepository, shopRepository);
+	private EmployeeService employeeService;
 
 	@Captor
 	private ArgumentCaptor<Employee> employeeCaptor;

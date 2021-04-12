@@ -40,7 +40,7 @@ class ComplaintServiceTest {
 	private TransactionRepository transactionRepository;
 
 	@InjectMocks
-	private ComplaintService complaintService = new ComplaintService(complaintRepository, productRepository, transactionRepository);
+	private ComplaintService complaintService;
 
 	@Test
 	void shouldAddComplaintWhenItDoesNotExist() {

@@ -31,7 +31,7 @@ class BrandServiceTest {
 	private ProducerRepository producerRepository;
 
 	@InjectMocks
-	private BrandService brandService = new BrandService(brandRepository, producerRepository);
+	private BrandService brandService;
 
 	@Captor
 	private ArgumentCaptor<Brand> brandCaptor;
