@@ -13,28 +13,28 @@ import static java.util.stream.Collectors.toList;
 @RequestMapping("/shops")
 public class ShopController {
 
-    private ShopService shopService;
+	private ShopService shopService;
 
-    public ShopController(ShopService shopService) {
-        this.shopService = shopService;
-    }
+	public ShopController(ShopService shopService) {
+		this.shopService = shopService;
+	}
 
-    @GetMapping
-    public List<ShopDto> getShops() {
-        return shopService.getAllShops().stream()
-                .map(shop -> ShopDto.from(shop))
-                .collect(toList());
-    }
+	@GetMapping
+	public List<ShopDto> getShops() {
+		return shopService.getAllShops().stream()
+				.map(shop -> ShopDto.from(shop))
+				.collect(toList());
+	}
 
-    @GetMapping("/{shopId}/employees")
-    public List<EmployeeDto> getEmployees(@PathVariable Long shopId) {
-        return shopService.getEmployees(shopId).stream()
-                .map(employee -> EmployeeDto.from(employee))
-                .collect(toList());
-    }
+	@GetMapping("/{shopId}/employees")
+	public List<EmployeeDto> getEmployees(@PathVariable Long shopId) {
+		return shopService.getEmployees(shopId).stream()
+				.map(employee -> EmployeeDto.from(employee))
+				.collect(toList());
+	}
 
-    @PostMapping
-    public void addShop(@RequestBody ShopDto shopDto) {
-        shopService.addNewShop(shopDto);
-    }
+	@PostMapping
+	public void addShop(@RequestBody ShopDto shopDto) {
+		shopService.addNewShop(shopDto);
+	}
 }

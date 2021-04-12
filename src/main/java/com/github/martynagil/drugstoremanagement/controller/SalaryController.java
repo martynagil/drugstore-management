@@ -12,21 +12,21 @@ import static java.util.stream.Collectors.toList;
 @RequestMapping("/employees")
 public class SalaryController {
 
-    private SalaryService salaryService;
+	private SalaryService salaryService;
 
-    public SalaryController(SalaryService salaryService) {
-        this.salaryService = salaryService;
-    }
+	public SalaryController(SalaryService salaryService) {
+		this.salaryService = salaryService;
+	}
 
-    @PostMapping("/{employeeId}/salaries")
-    public void addSalary(@PathVariable Long employeeId, @RequestBody SalaryDto salaryDto) {
-        salaryService.addSalary(employeeId, salaryDto);
-    }
+	@PostMapping("/{employeeId}/salaries")
+	public void addSalary(@PathVariable Long employeeId, @RequestBody SalaryDto salaryDto) {
+		salaryService.addSalary(employeeId, salaryDto);
+	}
 
-    @GetMapping("/{employeeId}/salaries")
-    public List<SalaryDto> getAnnualSalaries(@PathVariable Long employeeId) {
-        return salaryService.getAnnualSalaries(employeeId).stream()
-                .map(salary -> SalaryDto.from(salary))
-                .collect(toList());
-    }
+	@GetMapping("/{employeeId}/salaries")
+	public List<SalaryDto> getAnnualSalaries(@PathVariable Long employeeId) {
+		return salaryService.getAnnualSalaries(employeeId).stream()
+				.map(salary -> SalaryDto.from(salary))
+				.collect(toList());
+	}
 }

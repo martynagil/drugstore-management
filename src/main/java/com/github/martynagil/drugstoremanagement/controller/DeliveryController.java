@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/deliveries")
 public class DeliveryController {
 
-    private DeliveryService deliveryService;
+	private DeliveryService deliveryService;
 
-    public DeliveryController(DeliveryService deliveryService) {
-        this.deliveryService = deliveryService;
-    }
+	public DeliveryController(DeliveryService deliveryService) {
+		this.deliveryService = deliveryService;
+	}
 
-    @PostMapping
-    public void createDelivery(@RequestBody DeliveryDto deliveryDto) {
-        deliveryService.createDelivery(deliveryDto);
-    }
+	@PostMapping
+	public void createDelivery(@RequestBody DeliveryDto deliveryDto) {
+		deliveryService.createDelivery(deliveryDto);
+	}
 }

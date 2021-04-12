@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
 
-    private ProductService productService;
+	private ProductService productService;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
+	public ProductController(ProductService productService) {
+		this.productService = productService;
+	}
 
-    @PostMapping
-    public void addProduct(@RequestBody ProductDto productDto) {
-        productService.addProduct(productDto);
-    }
-    
+	@PostMapping
+	public void addProduct(@RequestBody ProductDto productDto) {
+		productService.addProduct(productDto);
+	}
+
 }

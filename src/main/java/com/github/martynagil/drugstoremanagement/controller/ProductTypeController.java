@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/product-types")
 public class ProductTypeController {
 
-    private ProductTypeService productTypeService;
+	private ProductTypeService productTypeService;
 
-    public ProductTypeController(ProductTypeService productTypeService) {
-        this.productTypeService = productTypeService;
-    }
+	public ProductTypeController(ProductTypeService productTypeService) {
+		this.productTypeService = productTypeService;
+	}
 
-    @PostMapping
-    public void addProductType(@RequestBody ProductTypeDto productTypeDto) {
-        productTypeService.addProductType(productTypeDto);
-    }
+	@PostMapping
+	public void addProductType(@RequestBody ProductTypeDto productTypeDto) {
+		productTypeService.addProductType(productTypeDto);
+	}
 }

@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/producers")
 public class ProducerController {
 
-    private ProducerService producerService;
+	private ProducerService producerService;
 
-    public ProducerController(ProducerService producerService) {
-        this.producerService = producerService;
-    }
+	public ProducerController(ProducerService producerService) {
+		this.producerService = producerService;
+	}
 
-    @PostMapping
-    public void addProducer(@RequestBody ProducerDto producerDto) {
-        producerService.addProducer(producerDto);
-    }
+	@PostMapping
+	public void addProducer(@RequestBody ProducerDto producerDto) {
+		producerService.addProducer(producerDto);
+	}
 }

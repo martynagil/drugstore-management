@@ -9,42 +9,45 @@ import java.util.List;
 @Table(name = "transactions")
 public class Transaction {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private LocalDateTime submissionTime;
+	@Column(nullable = false)
+	private LocalDateTime submissionTime;
 
-    @ManyToOne(optional = false)
-    private Shop shop;
+	@ManyToOne(optional = false)
+	private Shop shop;
 
-    @OneToMany(mappedBy = "transactionEntryId.transaction")
-    private List<TransactionEntry> transactionEntries = new ArrayList<>();
+	@OneToMany(mappedBy = "transactionEntryId.transaction")
+	private List<TransactionEntry> transactionEntries = new ArrayList<>();
 
-    @Deprecated
-    protected Transaction() {
-    }
+	@Deprecated
+	protected Transaction() {
+	}
 
-    public Transaction(LocalDateTime submissionTime, Shop shop, List<TransactionEntry> transactionEntries) {
-        this.submissionTime = submissionTime;
-        this.shop = shop;
-        this.transactionEntries = transactionEntries;
-    }
+	public Transaction(LocalDateTime submissionTime, Shop shop) {
+		this.submissionTime = submissionTime;
+		this.shop = shop;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void addEntry(TransactionEntry transactionEntry) {
+		transactionEntries.add(transactionEntry);
+	}
 
-    public LocalDateTime getSubmissionTime() {
-        return submissionTime;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Shop getShop() {
-        return shop;
-    }
+	public LocalDateTime getSubmissionTime() {
+		return submissionTime;
+	}
 
-    public List<TransactionEntry> getTransactionEntries() {
-        return transactionEntries;
-    }
+	public Shop getShop() {
+		return shop;
+	}
+
+	public List<TransactionEntry> getTransactionEntries() {
+		return transactionEntries;
+	}
 }

@@ -10,31 +10,31 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ProducerService {
 
-    private ProducerRepository producerRepository;
+	private ProducerRepository producerRepository;
 
-    public ProducerService(ProducerRepository producerRepository) {
-        this.producerRepository = producerRepository;
-    }
+	public ProducerService(ProducerRepository producerRepository) {
+		this.producerRepository = producerRepository;
+	}
 
-    @Transactional
-    public void addProducer(ProducerDto producerDto) {
-        if (producerExists(producerDto)) {
-            throw new ProducerAlreadyExistsException();
-        }
+	@Transactional
+	public void addProducer(ProducerDto producerDto) {
+		if (producerExists(producerDto)) {
+			throw new ProducerAlreadyExistsException();
+		}
 
-        Producer producer = createProducerFromDto(producerDto);
-        producerRepository.save(producer);
-    }
+		Producer producer = createProducerFromDto(producerDto);
+		producerRepository.save(producer);
+	}
 
-    private Producer createProducerFromDto(ProducerDto producerDto) {
-        return new Producer(
-                producerDto.getName(),
-                producerDto.getEmail(),
-                producerDto.getTelephone()
-        );
-    }
+	private Producer createProducerFromDto(ProducerDto producerDto) {
+		return new Producer(
+				producerDto.getName(),
+				producerDto.getEmail(),
+				producerDto.getTelephone()
+		);
+	}
 
-    private boolean producerExists(ProducerDto producerDto) {
-        return producerRepository.existsByName(producerDto.getName());
-    }
+	private boolean producerExists(ProducerDto producerDto) {
+		return producerRepository.existsByName(producerDto.getName());
+	}
 }

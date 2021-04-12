@@ -13,38 +13,38 @@ import javax.persistence.EntityNotFoundException;
 @Service
 public class BrandService {
 
-    private BrandRepository brandRepository;
-    private ProducerRepository producerRepository;
+	private BrandRepository brandRepository;
+	private ProducerRepository producerRepository;
 
-    public BrandService(BrandRepository brandRepository, ProducerRepository producerRepository) {
-        this.brandRepository = brandRepository;
-        this.producerRepository = producerRepository;
-    }
+	public BrandService(BrandRepository brandRepository, ProducerRepository producerRepository) {
+		this.brandRepository = brandRepository;
+		this.producerRepository = producerRepository;
+	}
 
-    @Transactional
-    public void addBrand(BrandDto brandDto) {
-        if (brandExists(brandDto)) {
-            throw new BrandAlreadyExistsException();
-        }
+	@Transactional
+	public void addBrand(BrandDto brandDto) {
+		if (brandExists(brandDto)) {
+			throw new BrandAlreadyExistsException();
+		}
 
-        Brand brand = createBrandFromDto(brandDto);
-        brandRepository.save(brand);
-    }
+		Brand brand = createBrandFromDto(brandDto);
+		brandRepository.save(brand);
+	}
 
-    private Brand createBrandFromDto(BrandDto brandDto) {
-        return new Brand(
-                brandDto.getName(),
-                brandDto.getEmail(),
-                brandDto.getTelephone(),
-                producerRepository.findById(brandDto.getProducerId())
-                        .orElseThrow(EntityNotFoundException::new)
-        );
-    }
+	private Brand createBrandFromDto(BrandDto brandDto) {
+		return new Brand(
+				brandDto.getName(),
+				brandDto.getEmail(),
+				brandDto.getTelephone(),
+				producerRepository.findById(brandDto.getProducerId())
+						.orElseThrow(EntityNotFoundException::new)
+		);
+	}
 
-    private boolean brandExists(BrandDto brandDto) {
-        return brandRepository.existsByNameAndProducerId(
-                brandDto.getName(),
-                brandDto.getProducerId()
-        );
-    }
+	private boolean brandExists(BrandDto brandDto) {
+		return brandRepository.existsByNameAndProducerId(
+				brandDto.getName(),
+				brandDto.getProducerId()
+		);
+	}
 }

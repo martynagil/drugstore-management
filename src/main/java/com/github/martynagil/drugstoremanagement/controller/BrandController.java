@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/brands")
 public class BrandController {
 
-    private BrandService brandService;
+	private BrandService brandService;
 
-    public BrandController(BrandService brandService) {
-        this.brandService = brandService;
-    }
+	public BrandController(BrandService brandService) {
+		this.brandService = brandService;
+	}
 
-    @PostMapping
-    public void addBrand(@RequestBody BrandDto brandDto) {
-        brandService.addBrand(brandDto);
-    }
+	@PostMapping
+	public void addBrand(@RequestBody BrandDto brandDto) {
+		brandService.addBrand(brandDto);
+	}
 }

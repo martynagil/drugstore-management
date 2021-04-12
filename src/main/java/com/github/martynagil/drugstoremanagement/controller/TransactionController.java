@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/transactions")
 public class TransactionController {
 
-    private TransactionService transactionService;
+	private TransactionService transactionService;
 
-    public TransactionController(TransactionService transactionService) {
-        this.transactionService = transactionService;
-    }
+	public TransactionController(TransactionService transactionService) {
+		this.transactionService = transactionService;
+	}
 
-    @PostMapping
-    public void addTransaction(@RequestBody TransactionDto transactionDto) {
-        transactionService.addTransaction(transactionDto);
-    }
+	@PostMapping
+	public void addTransaction(@RequestBody TransactionDto transactionDto) {
+		transactionService.addTransaction(transactionDto);
+	}
 }

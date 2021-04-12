@@ -1,0 +1,107 @@
+package com.github.martynagil.drugstoremanagement.service;
+
+import com.github.martynagil.drugstoremanagement.dto.EmployeeDismissalDto;
+import com.github.martynagil.drugstoremanagement.dto.EmployeeDto;
+import com.github.martynagil.drugstoremanagement.model.Address;
+import com.github.martynagil.drugstoremanagement.model.Employee;
+import com.github.martynagil.drugstoremanagement.model.Shop;
+import com.github.martynagil.drugstoremanagement.repositories.EmployeeRepository;
+import com.github.martynagil.drugstoremanagement.repositories.ShopRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.time.LocalDate;
+import java.util.Optional;
+
+import static java.time.LocalDate.now;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.notNull;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class EmployeeServiceTest {
+
+	private static final LocalDate DISMISSAL_DATE = LocalDate.parse("2021-05-12");
+
+	@Mock
+	private EmployeeRepository employeeRepository;
+
+	@Mock
+	private ShopRepository shopRepository;
+
+	@InjectMocks
+	private EmployeeService employeeService;
+
+	@Captor
+	private ArgumentCaptor<Employee> employeeCaptor;
+
+	@Test
+	void shouldAddNewEmployee() {
+		EmployeeDto employeeDto = employeeDto();
+		when(shopRepository.findById(any()))
+				.thenReturn(Optional.of(shop()));
+
+		employeeService.addNewEmployee(employeeDto);
+
+		verify(employeeRepository).save(employeeCaptor.capture());
+		Employee employee = employeeCaptor.getValue();
+
+		assertThat(employee.getDateOfEmployment()).isEqualTo(employeeDto.getDateOfEmployment());
+		assertThat(employee.getEmail()).isEqualTo(employeeDto.getEmail());
+		assertThat(employee.getName()).isEqualTo(employeeDto.getName());
+		assertThat(employee.getSurname()).isEqualTo(employeeDto.getSurname());
+		assertThat(employee.getTelephoneNumber()).isEqualTo(employeeDto.getTelephoneNumber());
+	}
+
+	@Test
+	void dismissEmployee() {
+		EmployeeDismissalDto employeeDismissalDto = employeeDismissalDto();
+		Employee employee = employee();
+		when(employeeRepository.findById(any()))
+				.thenReturn(Optional.of(employee));
+
+		employeeService.dismissEmployee(1L, employeeDismissalDto);
+
+		assertThat(employee.getDateOfDismissal()).isEqualTo(DISMISSAL_DATE);
+	}
+
+	private Shop shop() {
+		return new Shop(
+				"shop name",
+				null
+		);
+	}
+
+	private Employee employee() {
+		return new Employee("name",
+				"surname",
+				"telephoneNumber",
+				LocalDate.parse("2020-08-07"),
+				"email",
+				shop());
+	}
+
+	private EmployeeDto employeeDto() {
+		return new EmployeeDto(
+				"name",
+				"surname",
+				"number",
+				LocalDate.parse("2018-01-07"),
+				"mail",
+				1L
+		);
+	}
+
+	private EmployeeDismissalDto employeeDismissalDto() {
+		return new EmployeeDismissalDto(
+				DISMISSAL_DATE
+		);
+	}
+}
