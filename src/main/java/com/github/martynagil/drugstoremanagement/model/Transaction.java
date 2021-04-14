@@ -19,7 +19,7 @@ public class Transaction {
 	@ManyToOne(optional = false)
 	private Shop shop;
 
-	@OneToMany(mappedBy = "transactionEntryId.transaction")
+	@OneToMany(mappedBy = "transactionEntryId.transaction", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TransactionEntry> transactionEntries = new ArrayList<>();
 
 	@Deprecated

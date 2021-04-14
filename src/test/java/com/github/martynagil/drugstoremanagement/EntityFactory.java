@@ -9,7 +9,7 @@ import java.util.List;
 
 public class EntityFactory {
 
-	public Address newAddress() {
+	public static Address newAddress() {
 		return new Address(
 				"wroclaw",
 				"56-988",
@@ -17,33 +17,33 @@ public class EntityFactory {
 		);
 	}
 
-	public Brand newBrand() {
+	public static Brand newBrand(Producer producer) {
 		return new Brand(
 				"brand name",
 				"sdf@sdf.com",
 				"23456345",
-				newProducer()
+				producer
 		);
 	}
 
-	public Complaint newComplaint() {
+	public static Complaint newComplaint(Shop shop, Product product, Transaction transaction) {
 		return new Complaint(
 				LocalDate.of(2021, 12, 30),
 				"very serious reason",
-				newProduct(),
-				newTransaction()
+				product,
+				transaction
 		);
 	}
 
-	public Delivery newDelivery(List<DeliveryEntry> deliveryEntries) {
+	public  static Delivery newDelivery(List<DeliveryEntry> deliveryEntries, Address address, Shop shop) {
 		return new Delivery(
 				LocalDateTime.of(2021, 3, 4, 5, 4),
-				newShop(),
+				shop,
 				deliveryEntries
 		);
 	}
 
-	public Producer newProducer() {
+	public static Producer newProducer() {
 		return new Producer(
 				"producer name",
 				"email@producer.com",
@@ -51,35 +51,48 @@ public class EntityFactory {
 		);
 	}
 
-	public Product newProduct() {
+	public static Product newProduct(Brand brand, ProductType productType) {
 		return new Product(
 				"product name",
 				"12345654323456",
 				BigDecimal.valueOf(25),
-				newBrand(),
-				newProductType()
+				brand,
+				productType
 		);
 	}
 
-	public ProductType newProductType() {
+	public static ProductType newProductType() {
 		return new ProductType(
 				"cream"
 		);
 	}
 
-	public Transaction newTransaction() {
+	public static Transaction newTransaction(Shop shop) {
 		return new Transaction(
 				LocalDateTime.of(2021, 1, 3, 13, 10),
-				newShop()
+				shop
 		);
 	}
 
-	public Shop newShop() {
+	public static Shop newShop(Address address) {
 		return new Shop(
 				"shop name",
-				newAddress()
+				address
+		);
+	}
+
+	public static DeliveryEntryId newDeliveryEntryId(Product product, Delivery delivery) {
+		return new DeliveryEntryId(
+				product,
+				delivery
+		);
+	}
+
+	public static DeliveryEntry newDeliveryEntry(DeliveryEntryId deliveryEntryId, int count) {
+		return new DeliveryEntry(
+				deliveryEntryId,
+				count
 		);
 	}
 
 }
-// TODO: 14.04.2021 statyczne

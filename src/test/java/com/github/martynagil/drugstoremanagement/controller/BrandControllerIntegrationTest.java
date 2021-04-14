@@ -15,22 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
 public class BrandControllerIntegrationTest extends IntegrationTestBase {
-
-	@Autowired
-	private MockMvc mockMvc;
-
-	@Autowired
-	private ObjectMapper objectMapper;
-
-	@Autowired
-	private ProducerRepository producerRepository;
-
-	@AfterEach
-	void tearDown() {
-		producerRepository.deleteAll();
-	}
 
 	@Test
 	void shouldNotAddBrandWhenBodyIsEmpty() throws Exception {
