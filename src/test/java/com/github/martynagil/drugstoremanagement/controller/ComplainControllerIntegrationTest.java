@@ -17,7 +17,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ComplainControllerIntegrationTest extends IntegrationTestBase {
 
 	private static final LocalDate SUBMISSION_DATE1 = LocalDate.of(2021, 12, 13);
-	private static final LocalDate SUBMISSION_DATE2 = LocalDate.of(2021, 12, 14);
 
 	@Test
 	void shouldNotAddComplaintIfBodyIsEmpty() throws Exception {

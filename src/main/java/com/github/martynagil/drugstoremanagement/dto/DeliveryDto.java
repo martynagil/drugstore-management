@@ -2,7 +2,6 @@ package com.github.martynagil.drugstoremanagement.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.martynagil.drugstoremanagement.model.DeliveryEntry;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,24 +11,23 @@ public class DeliveryDto {
 	private Long id;
 	private LocalDateTime time;
 	private Long shopId;
-	private List<DeliveryEntry> deliveryEntries;
+	private List<DeliveryEntryDto> deliveryEntryDtos;
 
-	public DeliveryDto(Long id, LocalDateTime time, Long shopId, List<DeliveryEntry> deliveryEntries) {
+	public DeliveryDto(Long id, LocalDateTime time, Long shopId, List<DeliveryEntryDto> deliveryEntryDtos) {
 		this.id = id;
 		this.time = time;
 		this.shopId = shopId;
-		this.deliveryEntries = deliveryEntries;
+		this.deliveryEntryDtos = deliveryEntryDtos;
 	}
 
 	@JsonCreator
 	public DeliveryDto(
 			@JsonProperty("time") LocalDateTime time,
 			@JsonProperty("shopId") Long shopId,
-			@JsonProperty("deliveryEntries") List<DeliveryEntry> deliveryEntries) {
-		this.id = id;
+			@JsonProperty("deliveryEntries") List<DeliveryEntryDto> deliveryEntryDtos) {
 		this.time = time;
 		this.shopId = shopId;
-		this.deliveryEntries = deliveryEntries;
+		this.deliveryEntryDtos = deliveryEntryDtos;
 	}
 
 	public Long getId() {
@@ -44,7 +42,7 @@ public class DeliveryDto {
 		return shopId;
 	}
 
-	public List<DeliveryEntry> getDeliveryEntries() {
-		return deliveryEntries;
+	public List<DeliveryEntryDto> getDeliveryEntryDtos() {
+		return deliveryEntryDtos;
 	}
 }

@@ -2,16 +2,17 @@ package com.github.martynagil.drugstoremanagement.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.github.martynagil.drugstoremanagement.model.DeliveryEntryId;
 
-public class TransactionEntryDto {
+public class DeliveryEntryDto {
 
 	private Long productId;
 	private int count;
 
 	@JsonCreator
-	public TransactionEntryDto(
-			@JsonProperty Long productId,
-			@JsonProperty int count) {
+	public DeliveryEntryDto(
+			@JsonProperty("productId") Long productId,
+			@JsonProperty("count") int count) {
 		this.productId = productId;
 		this.count = count;
 	}
@@ -19,7 +20,6 @@ public class TransactionEntryDto {
 	public Long getProductId() {
 		return productId;
 	}
-
 	public int getCount() {
 		return count;
 	}

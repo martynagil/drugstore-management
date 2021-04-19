@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class IntegrationTestBase {
+public abstract class IntegrationTestBase {
 
 	@Autowired
 	protected MockMvc mockMvc;
@@ -56,13 +56,13 @@ public class IntegrationTestBase {
 		complaintRepository.deleteAll();
 		transactionRepository.deleteAll();
 		productRepository.deleteAll();
-		shopRepository.deleteAll();
 		brandRepository.deleteAll();
 		productRepository.deleteAll();
 		producerRepository.deleteAll();
 		productTypeRepository.deleteAll();
 		deliveryRepository.deleteAll();
 		employeeRepository.deleteAll();;
+		shopRepository.deleteAll();
 		salaryRepository.deleteAll();
 		workTimeRepository.deleteAll();
 	}

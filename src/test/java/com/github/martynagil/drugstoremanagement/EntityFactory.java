@@ -1,5 +1,6 @@
 package com.github.martynagil.drugstoremanagement;
 
+import com.github.martynagil.drugstoremanagement.dto.DeliveryEntryDto;
 import com.github.martynagil.drugstoremanagement.model.*;
 
 import java.math.BigDecimal;
@@ -35,11 +36,10 @@ public class EntityFactory {
 		);
 	}
 
-	public  static Delivery newDelivery(List<DeliveryEntry> deliveryEntries, Address address, Shop shop) {
+	public  static Delivery newDelivery(Address address, Shop shop) {
 		return new Delivery(
 				LocalDateTime.of(2021, 3, 4, 5, 4),
-				shop,
-				deliveryEntries
+				shop
 		);
 	}
 
@@ -93,6 +93,10 @@ public class EntityFactory {
 				deliveryEntryId,
 				count
 		);
+	}
+
+	public static DeliveryEntryDto newDeliveryEntryDto(Long productId) {
+		return new DeliveryEntryDto(productId, 5);
 	}
 
 }

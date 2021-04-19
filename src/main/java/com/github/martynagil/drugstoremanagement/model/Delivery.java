@@ -26,10 +26,13 @@ public class Delivery {
 	protected Delivery() {
 	}
 
-	public Delivery(LocalDateTime time, Shop shop, List<DeliveryEntry> deliveryEntries) {
+	public Delivery(LocalDateTime time, Shop shop) {
 		this.time = time;
 		this.shop = shop;
-		this.deliveryEntries = deliveryEntries;
+	}
+
+	public void addEntry(DeliveryEntry deliveryEntry) {
+		deliveryEntries.add(deliveryEntry);
 	}
 
 	public Long getId() {

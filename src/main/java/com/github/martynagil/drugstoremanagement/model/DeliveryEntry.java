@@ -1,5 +1,7 @@
 package com.github.martynagil.drugstoremanagement.model;
 
+import com.github.martynagil.drugstoremanagement.dto.DeliveryEntryDto;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
